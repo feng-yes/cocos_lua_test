@@ -1,8 +1,17 @@
-print("123123")
+
+-- cliping node用法测试
+
 
 local STENCIL_SIZE = {200, 300}
 
-function runClipNode()
+local function GetStencilLayer()
+    local layer = cc.LayerColor:create(cc.c4b(255, 255, 255, 255 * .75), STENCIL_SIZE[1], STENCIL_SIZE[2])
+    layer:setPosition(cc.p(VisibleRect:center().x, VisibleRect:center().y))
+    layer:setIgnoreAnchorPointForPosition(false)
+    return layer
+end
+
+local function runClipNode()
     local layer = cc.Layer:create()
     local bg = cc.Sprite:create("mysource/pic/lbg.png")
     bg:setPosition(cc.p(VisibleRect:center().x, VisibleRect:center().y))
@@ -37,12 +46,6 @@ function runClipNode()
     return layer
 end
 
-function GetStencilLayer()
-    local layer = cc.LayerColor:create(cc.c4b(255, 255, 255, 255 * .75), STENCIL_SIZE[1], STENCIL_SIZE[2])
-    layer:setPosition(cc.p(VisibleRect:center().x, VisibleRect:center().y))
-    layer:setIgnoreAnchorPointForPosition(false)
-    return layer
-end
 
 function RunTest()
     local scene = cc.Scene:create()
