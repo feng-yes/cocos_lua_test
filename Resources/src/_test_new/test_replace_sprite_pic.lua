@@ -49,8 +49,10 @@ local function runSpriteReplaceNode()
         scheduler:unscheduleScriptEntry(schedulerID3)
         
         local plistPath = 'zwoptex/grossini-generic.plist'
-        local path3 = 'grossini_dance_generic_01.png'
+        local path3 = 'grossini_dance_generic_05.png'
         local frameCache = cc.SpriteFrameCache:getInstance()
+        -- 如果事先导入的plist包含同名分图，则新导入的plist同名分图不生效
+        -- frameCache:addSpriteFrames('mysource/frame/circle.plist')
         frameCache:addSpriteFrames(plistPath)
         sprite:setSpriteFrame(frameCache:getSpriteFrame(path3))
         print(sprite:getContentSize())
