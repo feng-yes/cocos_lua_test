@@ -67,7 +67,7 @@ require "MaterialSystemTest/MaterialSystemTest"
 require "NavMeshTest/NavMeshTest"
 require "LuaLoaderTest/LuaLoaderTest"
 
-
+-- my add
 require "Resources.src._my_ext.print"
 require "Resources.src._my_ext.table"
 require "_test_new/test_cliping_node"
