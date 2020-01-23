@@ -1,8 +1,11 @@
+-- 重写print函数
+
 release_print = print
 
 local _moduleMt = {
     __index = _G,
 }
+
 
 function is_module(m)
     return type(m) == 'table' and _moduleMt == getmetatable(m)

@@ -68,10 +68,7 @@ require "NavMeshTest/NavMeshTest"
 require "LuaLoaderTest/LuaLoaderTest"
 
 -- my add
-require "Resources.src._my_ext.print"
-require "Resources.src._my_ext.table"
-require "_test_new/test_cliping_node"
-require "_test_new/test_replace_sprite_pic"
+require "Resources.src._my_code.init"
 
 local LINE_SPACE = 40
 
@@ -95,8 +92,7 @@ if (currPlatform == cc.PLATFORM_OS_TIZEN) then
 end
 
 local _allTests = {
-    { isSupported = true,  name = "NewClipingNode"          , create_func=             RunTest  },
-    { isSupported = true,  name = "SpriteReplaceTest"          , create_func=             RunTest2  },
+    { isSupported = true,  name = "MyTest"          , create_func=             MyTestMain  },
 
 
     { isSupported = true,  name = "Accelerometer"          , create_func=             AccelerometerMain  },

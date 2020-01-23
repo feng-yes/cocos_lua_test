@@ -1,3 +1,4 @@
+-- table扩展
 
 function table.arr_bubble_sort(array, cmp)
     local len = #array
@@ -10,7 +11,7 @@ function table.arr_bubble_sort(array, cmp)
             end
             j = j + 1
         end
-        i = i - 1  
+        i = i - 1
     end
 
     return array

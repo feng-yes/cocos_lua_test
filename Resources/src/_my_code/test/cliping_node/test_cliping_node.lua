@@ -1,7 +1,6 @@
 
 -- cliping node用法测试
 
-
 local STENCIL_SIZE = {200, 300}
 
 local function GetStencilLayer()
@@ -47,9 +46,11 @@ local function runClipNode()
 end
 
 
-function RunTest()
+local function RunTest()
     local scene = cc.Scene:create()
 	scene:addChild(runClipNode())
-	scene:addChild(CreateBackMenuItem())
+	scene:addChild(CreateBackButton())
     return scene
 end
+
+return RunTest

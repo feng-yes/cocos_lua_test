@@ -69,9 +69,11 @@ local function runSpriteReplaceNode()
     return layer
 end
 
-function RunTest2()
+local function RunTest()
     local scene = cc.Scene:create()
 	scene:addChild(runSpriteReplaceNode())
-	scene:addChild(CreateBackMenuItem())
+	scene:addChild(CreateBackButton())
     return scene
 end
+
+return RunTest
