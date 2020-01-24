@@ -1,8 +1,8 @@
 --  入口
 
 -- public
-require "_my_code.public.print"
-require "_my_code.public.table"
+require "_my_code.public.lua_ext.print"
+require "_my_code.public.lua_ext.table"
 
 -- my扩展菜单
 local createMainScene = require("_my_code.test.menu")
