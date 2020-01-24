@@ -60,3 +60,8 @@ if cc.Director:getInstance():getRunningScene() then
 else
     cc.Director:getInstance():runWithScene(scene)
 end
+
+-- 直接加载我的测试用例
+cc.Director:getInstance():purgeCachedData()
+local testScene = MyTestMain()
+cc.Director:getInstance():replaceScene(testScene)

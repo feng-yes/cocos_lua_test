@@ -3,7 +3,7 @@ require "_my_code.test._others.back"
 --[[ 添加自定义的测试用例
 	1.在testCaseNames添加新测试模块
 	2.testCaseNames的path为模块入口，模块入口需要返回入口方法，入口方法返回测试用例的场景
-	3.测试用例场景添加CreateBackButton()为子节点，用于结束测试用例；或退出时调用cc.Director:getInstance():popScene()
+	3.测试用例场景添加CreateBackButton()为子节点，添加结束测试用例按钮；或调用cc.Director:getInstance():popScene()退出
 ]] 
 
 
@@ -79,9 +79,34 @@ local function createReloadBtn()
     local Menu = cc.Menu:create()
     Menu:addChild(MenuItem)
     Menu:setPosition(0, 0)
-    MenuItem:setPosition(50, s.y + 25)
+    MenuItem:setPosition(s.width - 50, s.y + 50)
 
     return Menu
+end
+
+local function createCloseBtn()
+    local function closeCallback()
+        cc.Director:getInstance():endToLua()
+    end
+
+    -- add close menu
+    local s = cc.Director:getInstance():getWinSize()
+    local CloseItem = cc.MenuItemImage:create(s_pPathClose, s_pPathClose)
+    CloseItem:registerScriptTapHandler(closeCallback)
+    CloseItem:setAnchorPoint(1, 1) 
+    CloseItem:setPosition(VisibleRect:rightTop())
+
+    local CloseMenu = cc.Menu:create()
+    CloseMenu:setPosition(0, 0)
+    CloseMenu:addChild(CloseItem)
+    return CloseMenu
+end
+
+local function createBG()
+    local bg = cc.Sprite:create("mysource/pic/lbg.png")
+	bg:setPosition(cc.p(VisibleRect:center().x, VisibleRect:center().y))
+	bg:setScale(0.6)
+	return bg
 end
 
 -------------------------------------
@@ -91,8 +116,10 @@ local function CreateMainScene()
 	testCaseLoad()
 
 	local scene = cc.Scene:create()
+	scene:addChild(createBG())
 	scene:addChild(createMainLayer())
 	scene:addChild(createReloadBtn())
+	scene:addChild(createCloseBtn())
 	return scene
 end
 
