@@ -1,5 +1,12 @@
 require "_my_code.test._others.back"
 
+--[[ 添加自定义的测试用例
+	1.在testCaseNames添加新测试模块
+	2.testCaseNames的path为模块入口，模块入口需要返回入口方法，入口方法返回测试用例的场景
+	3.测试用例场景添加CreateBackButton()为子节点，用于结束测试用例；或退出时调用cc.Director:getInstance():popScene()
+]] 
+
+
 -- 测试名称及路径
 local testCaseNames = {
 	{name = 'cliping_node', path = '_my_code.test.cliping_node.test_cliping_node', autoReload = true},
