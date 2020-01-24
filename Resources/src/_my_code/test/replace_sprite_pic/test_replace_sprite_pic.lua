@@ -66,7 +66,6 @@ local function runSpriteReplaceNode()
     schedulerID3 = scheduler:scheduleScriptFunc(ch3, 6.0, false)
     -- local frameCache = cc.SpriteFrameCache:getInstance()
 
-    return layer
 end
 
 local function RunTest()

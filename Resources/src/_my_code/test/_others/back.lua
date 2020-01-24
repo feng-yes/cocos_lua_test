@@ -2,6 +2,8 @@
 function CreateBackButton()
 	local goBack = function()
         cc.Director:getInstance():popScene()
+        -- 清理缓存
+        cc.Director:getInstance():purgeCachedData()
 	end
 	
     local label = cc.Label:createWithTTF("back", s_arialPath, 20)
