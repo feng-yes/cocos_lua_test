@@ -1106,7 +1106,7 @@ local function TMXBug787()
     local ret = createTileDemoLayer("TMX Bug 787", "You should see a map")
     local map = ccexp.TMXTiledMap:create("TileMaps/iso-test-bug787.tmx")
     ret:addChild(map, 0, kTagTileMap)
-    map:setScale(0.25)
+    map:setScale(0.75)
     return ret
 end
 
