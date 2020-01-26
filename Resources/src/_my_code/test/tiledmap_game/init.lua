@@ -6,11 +6,6 @@ local kTagTileMap = 1
 
 local function createTileDemoLayer(title, subtitle)
     local layer = cc.Layer:create()
-    Helper.initWithLayer(layer)
-    local titleStr = title == nil and "No title" or title
-    local subTitleStr = subtitle  == nil and "drag the screen" or subtitle
-    Helper.titleLabel:setString(titleStr)
-    Helper.subtitleLabel:setString(subTitleStr)
 
     local function onTouchesMoved(touches, event )
         local diff = touches[1]:getDelta()

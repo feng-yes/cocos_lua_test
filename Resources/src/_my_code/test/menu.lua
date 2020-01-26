@@ -11,7 +11,7 @@ require "_my_code.test._others.back"
 local testCaseNames = {
 	{name = 'cliping_node', path = '_my_code.test.cliping_node.test_cliping_node', autoReload = true},
 	{name = 'replace_sprite_pic', path = '_my_code.test.replace_sprite_pic.test_replace_sprite_pic', autoReload = true},
-	{name = 'test_lua', path = '_my_code.test.tiledmap_game.test_lua', autoReload = true},
+	{name = 'game_tiledmap', path = '_my_code.test.tiledmap_game.init', autoReload = true},
 }
 
 local LINE_SPACE = 40
