@@ -1,5 +1,4 @@
 local size = cc.Director:getInstance():getWinSize()
-local scheduler = cc.Director:getInstance():getScheduler()
 
 local kTagTileMap = 1
 
@@ -25,17 +24,40 @@ end
 local function CreateMapTest()
     local m_tamara = nil
     local ret = createTileDemoLayer("", "")
+    -- local map = ccexp.TMXTiledMap:create("TileMaps/orthogonal-test-vertexz.tmx")
     local map = ccexp.TMXTiledMap:create("mysource/tilmap_game/map/map.tmx")
     ret:addChild(map, 0, kTagTileMap)
-    map:setScale(0.5)
+    map:setScale(0.8)
 
+    local layer1 = map:getLayer("land")
+    print('------------', layer1:getLayerSize())
+    print('------------', layer1:getTileGIDAt(cc.p(0,0)))
+    local gIdSea = layer1:getTileGIDAt(cc.p(0,0))
+    print('------------', layer1:getTileGIDAt(cc.p(5,4)))
+        layer1:setTileGID(gIdSea, cc.p(5,4))
+
+    -- 地图层设置cc_vertexz后，不设置2d方向cc_vertexz ~= 0的层都显示不出来
+    local function onNodeEvent(event)
+        if event == "enter" then
+            cc.Director:getInstance():setProjection(cc.DIRECTOR_PROJECTION2_D )
+        elseif event == "exit" then
+            cc.Director:getInstance():setProjection(cc.DIRECTOR_PROJECTION_DEFAULT )
+            if m_tamara ~= nil then
+                m_tamara:release()
+            end
+        end
+    end
+
+    ret:registerScriptHandler(onNodeEvent)
     return ret
 end
 
 local function RunTest()
+    -- tilmap需要深度测试
+    cc.Director:getInstance():setDepthTest(true)
     local scene = cc.Scene:create()
-	scene:addChild(CreateBackButton())
 	scene:addChild(CreateMapTest())
+	scene:addChild(CreateBackButton())
     return scene
 end
 

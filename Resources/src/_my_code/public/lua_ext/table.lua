@@ -16,3 +16,22 @@ function table.arr_bubble_sort(array, cmp)
 
     return array
 end
+
+-- 是否包含
+function table.contents(array, value)
+    for i, v in ipairs(array) do
+        if v == value then
+            return true
+        end
+    end
+
+    return false
+end
+
+function table.remove_v(array, value)
+    for i, v in ipairs(array) do
+        if v == value then
+            return i, table.remove(array, i)
+        end
+    end
+end
