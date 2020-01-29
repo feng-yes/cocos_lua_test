@@ -17,10 +17,10 @@ end
 -- 支持按父节点百分比设置大小及位置 eg. 50%-30 , 30%20
 function cc.Node:SetPosition(sX, sY)
     local x, y
-    if type(sX) == "unmber" then
+    if type(sX) == "number" then
         x = sX
     end
-    if type(sY) == "unmber" then
+    if type(sY) == "number" then
         y = sY
     end
 
@@ -45,10 +45,10 @@ end
 
 function cc.Node:SetContentSize(sW, sH)
     local w, h
-    if type(sW) == "unmber" then
+    if type(sW) == "number" then
         w = sW
     end
-    if type(sH) == "unmber" then
+    if type(sH) == "number" then
         h = sH
     end
 
