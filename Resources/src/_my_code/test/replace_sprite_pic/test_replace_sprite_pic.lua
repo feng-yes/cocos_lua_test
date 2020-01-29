@@ -1,10 +1,12 @@
 
 -- 替换sprite的纹理
 
+local schedulerID1
+local schedulerID2
+local schedulerID3
+local scheduler = cc.Director:getInstance():getScheduler()
 
 local function runSpriteReplaceNode()
-
-    local scheduler = cc.Director:getInstance():getScheduler()
 
     local layer = cc.Layer:create()
     local sprite = cc.Sprite:create("extensions/potentiometerButton.png")
@@ -13,7 +15,6 @@ local function runSpriteReplaceNode()
     print(sprite:getContentSize())
 
     -- 法1(ContentSize 手动改变)
-    local schedulerID1
     local function ch1()
         scheduler:unscheduleScriptEntry(schedulerID1)
 
@@ -29,7 +30,6 @@ local function runSpriteReplaceNode()
     schedulerID1 = scheduler:scheduleScriptFunc(ch1, 2.0, false)
 
     -- 法2
-    local schedulerID2
     local function ch2() 
         scheduler:unscheduleScriptEntry(schedulerID2)
         
@@ -44,7 +44,6 @@ local function runSpriteReplaceNode()
 
     
     -- 法3 从合图中获取
-    local schedulerID3
     local function ch3() 
         scheduler:unscheduleScriptEntry(schedulerID3)
         
@@ -66,12 +65,17 @@ local function runSpriteReplaceNode()
     schedulerID3 = scheduler:scheduleScriptFunc(ch3, 6.0, false)
     -- local frameCache = cc.SpriteFrameCache:getInstance()
 
+    return layer
 end
 
 local function RunTest()
     local scene = cc.Scene:create()
 	scene:addChild(runSpriteReplaceNode())
-	scene:addChild(CreateBackButton())
+    scene:addChild(CreateBackButton(function() 
+        scheduler:unscheduleScriptEntry(schedulerID1)
+        scheduler:unscheduleScriptEntry(schedulerID2)
+        scheduler:unscheduleScriptEntry(schedulerID3)
+    end))
     return scene
 end
 

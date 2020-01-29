@@ -6,6 +6,7 @@ require "_my_code.public.lua_ext.table"
 require "_my_code.public.lua_ext.functor"
 
 require "_my_code.public.cocos_ext.timer"
+require "_my_code.public.cocos_ext.node"
 
 -- my扩展菜单
 local createMainScene = require("_my_code.test.menu")

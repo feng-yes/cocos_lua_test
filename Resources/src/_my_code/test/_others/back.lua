@@ -1,6 +1,9 @@
 -- 公共返回按钮
-function CreateBackButton()
+function CreateBackButton(beforeFunc)
 	local goBack = function()
+        if beforeFunc then
+            beforeFunc()
+        end
         cc.Director:getInstance():popScene()
         -- 清理缓存
         cc.Director:getInstance():purgeCachedData()
