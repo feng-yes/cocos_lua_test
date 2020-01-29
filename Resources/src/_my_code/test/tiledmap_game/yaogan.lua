@@ -9,3 +9,5 @@ local function initYaoganLayer()
     
     local layer = cc.Layer:create()
 end
+
+return module

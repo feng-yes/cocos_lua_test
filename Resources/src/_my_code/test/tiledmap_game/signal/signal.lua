@@ -33,3 +33,5 @@ function module.emit(nSign, ...)
         func(unpack(args, 1, n))
     end
 end
+
+return module
