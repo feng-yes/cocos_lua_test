@@ -70,3 +70,82 @@ function cc.Node:SetContentSize(sW, sH)
     
     self:setContentSize(cc.size(w, h))
 end
+
+-- 开启触摸控制，触摸判定范围为节点contensize
+-- 触摸回调方法名: openTouchBegan(), openTouchMoved(), openTouchEnd()
+-- 其他回调方法/属性
+-- 点击回调：openClick()
+-- 是否触摸节点:bOpenTouching; 触摸进入节点:openTouchIn(); 触摸离开节点:openTouchOut()
+function cc.Node:OpenTouch()
+    self.bOpenTouching = false
+    local onTouchBegan = function(touch, event)
+        local touchLocation = self:convertToNodeSpace(cc.p(touch:getLocation().x, touch:getLocation().y))
+        if touchLocation.x < 0 or touchLocation.y < 0 or 
+        touchLocation.x > self:getContentSize().width or touchLocation.y > self:getContentSize().height then
+            self.bOpenTouching = false
+            return
+        end
+        self.bOpenTouching = true
+        if self.openTouchBegan then
+            return self:openTouchBegan(touch, event)
+        end
+        return true
+    end
+
+    local onTouchMoved = function(touch, event)
+        local touchLocation = self:convertToNodeSpace(cc.p(touch:getLocation().x, touch:getLocation().y))
+        local nowTouching
+        if touchLocation.x < 0 or touchLocation.y < 0 or 
+        touchLocation.x > self:getContentSize().width or touchLocation.y > self:getContentSize().height then
+            nowTouching = false
+        else
+            nowTouching = true
+        end
+        
+        if nowTouching ~= self.bOpenTouching then
+            if nowTouching then
+                if self.openTouchIn then 
+                    self:openTouchIn(touch, event)
+                end
+            else
+                if self.openTouchOut then 
+                    self:openTouchOut(touch, event)
+                end
+            end
+        end
+        self.bOpenTouching = nowTouching
+
+        if self.openTouchMoved then
+            self:openTouchMoved(touch, event)
+        end
+    end
+    
+    local onTouchEnd = function(touch, event)
+        local touchLocation = self:convertToNodeSpace(cc.p(touch:getLocation().x, touch:getLocation().y))
+        if touchLocation.x > 0 and touchLocation.y > 0 and 
+        touchLocation.x < self:getContentSize().width and touchLocation.y < self:getContentSize().height then
+            if self.openClick then
+                self:openClick(touch, event)
+            end
+        end
+        if self.openTouchEnd then
+            self:openTouchEnd(touch, event)
+        end
+    end
+
+    local listener = cc.EventListenerTouchOneByOne:create()
+    listener:registerScriptHandler(onTouchBegan,cc.Handler.EVENT_TOUCH_BEGAN)
+    listener:registerScriptHandler(onTouchMoved,cc.Handler.EVENT_TOUCH_MOVED)
+    listener:registerScriptHandler(onTouchEnd,cc.Handler.EVENT_TOUCH_ENDED)
+    local eventDispatcher = self:getEventDispatcher()
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self)
+    -- 默认吞噬
+    listener:setSwallowTouches(true)
+    self._sysTouchListener = listener
+end
+
+function cc.Node:SetOpenTouchSwallow(bOpen)
+    if self._sysTouchListener then
+        self._sysTouchListener:setSwallowTouches(bOpen)
+    end
+end
