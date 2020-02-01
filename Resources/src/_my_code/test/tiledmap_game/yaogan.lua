@@ -24,6 +24,7 @@ local function createGan(bg)
 
     gan:OpenTouch()
     local maxMoved = 30
+    local lastAngle
     local ganPrePos = {gan:getPosition()}
     local ganTouchPos
     gan.openTouchBegan = function(touch)
@@ -56,8 +57,10 @@ local function createGan(bg)
             ganPrePos[2] + maxMoved * math.sin(nAngle))
         end
 
-        slot.emit(slotConstant.YAOGAN, true, nAngle, touchl > maxMoved and 1 or touchl / maxMoved)
-        print(slotConstant.YAOGAN, true, nAngle, touchl > maxMoved and 1 or touchl / maxMoved)
+        if not lastAngle or math.abs(nAngle - lastAngle) > 15 / 180 * math.pi then
+            slot.emit(slotConstant.YAOGAN, true, nAngle, touchl > maxMoved and 1 or touchl / maxMoved)
+            lastAngle = nAngle
+        end
     end
 
     gan.openTouchEnd = function()
@@ -71,6 +74,7 @@ local function createGan(bg)
 
         bg:stopAllActions()
 
+        lastAngle = nil
         slot.emit(slotConstant.YAOGAN, false)
     end 
     return gan

@@ -4,6 +4,7 @@ local function doReload()
     package.loaded['_my_code.test.tiledmap_game.main'] = nil
     package.loaded['_my_code.test.tiledmap_game.signal.signal_constant'] = nil
     package.loaded['_my_code.test.tiledmap_game.signal.signal'] = nil
+    package.loaded['_my_code.test.tiledmap_game.map.map_item'] = nil
 end
 
 return doReload
