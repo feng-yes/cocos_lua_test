@@ -87,7 +87,7 @@ function cc.Node:OpenTouch()
         end
         self.bOpenTouching = true
         if self.openTouchBegan then
-            return self:openTouchBegan(touch, event)
+            return self.openTouchBegan(touch, event)
         end
         return true
     end
@@ -105,18 +105,18 @@ function cc.Node:OpenTouch()
         if nowTouching ~= self.bOpenTouching then
             if nowTouching then
                 if self.openTouchIn then 
-                    self:openTouchIn(touch, event)
+                    self.openTouchIn(touch, event)
                 end
             else
                 if self.openTouchOut then 
-                    self:openTouchOut(touch, event)
+                    self.openTouchOut(touch, event)
                 end
             end
         end
         self.bOpenTouching = nowTouching
 
         if self.openTouchMoved then
-            self:openTouchMoved(touch, event)
+            self.openTouchMoved(touch, event)
         end
     end
     
@@ -125,11 +125,11 @@ function cc.Node:OpenTouch()
         if touchLocation.x > 0 and touchLocation.y > 0 and 
         touchLocation.x < self:getContentSize().width and touchLocation.y < self:getContentSize().height then
             if self.openClick then
-                self:openClick(touch, event)
+                self.openClick(touch, event)
             end
         end
         if self.openTouchEnd then
-            self:openTouchEnd(touch, event)
+            self.openTouchEnd(touch, event)
         end
     end
 
