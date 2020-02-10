@@ -6,7 +6,7 @@ end
 
 local function createYaogan()
     local layer = cc.Layer:create()
-    local createYaoganLayer = require('_my_code.test.tiledmap_game.yaogan')
+    local createYaoganLayer = require('_my_code.test.tiledmap_game.controller.yaogan')
     local yaogan = createYaoganLayer()
     layer:addChild(yaogan)
     return layer

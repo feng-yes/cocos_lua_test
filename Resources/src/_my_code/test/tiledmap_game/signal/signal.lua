@@ -1,11 +1,11 @@
 -- 游戏信号模块
 -- 需要手动注销注册
 
+CreateLocalModule('_my_code.test.tiledmap_game.signal.signal')
+
 local signalMap = {}
 
-local module = {}
-
-function module.register(nSign, func)
+function register(nSign, func)
     if not signalMap[nSign] then
         signalMap[nSign] = {}
     end
@@ -15,14 +15,14 @@ function module.register(nSign, func)
     table.insert(signalMap[nSign], func)
 end
 
-function module.unRegister(nSign, func)
+function unRegister(nSign, func)
     if not signalMap[nSign] then
         return
     end
     table.remove_v(signalMap[nSign], func)
 end
 
-function module.emit(nSign, ...)
+function emit(nSign, ...)
     if not signalMap[nSign] then
         return
     end
@@ -33,5 +33,3 @@ function module.emit(nSign, ...)
         func(unpack(args, 1, n))
     end
 end
-
-return module

@@ -9,6 +9,7 @@ require "_my_code.test._others.back"
 
 -- 测试名称及路径
 local testCaseNames = {
+	{name = 'pub_test', path = '_my_code.test.public_test.pub_test', autoReload = true},
 	{name = 'cliping_node', path = '_my_code.test.cliping_node.test_cliping_node', autoReload = true},
 	{name = 'replace_sprite_pic', path = '_my_code.test.replace_sprite_pic.test_replace_sprite_pic', autoReload = true},
 	{name = 'game_tiledmap', path = '_my_code.test.tiledmap_game.init', autoReload = true},
@@ -56,7 +57,16 @@ local function createMainLayer()
 			end
 			return scene
 		end
-        testMenuItem:registerScriptTapHandler(createTestScene)
+
+		local function createPubTest()
+			package.loaded[caseInfo.path] = nil
+			local fun = require(caseInfo.path)
+			if fun then
+				fun()
+			end
+		end
+
+        testMenuItem:registerScriptTapHandler(i == 1 and createPubTest or createTestScene)
         menu:addChild(testMenuItem)
 	end
 

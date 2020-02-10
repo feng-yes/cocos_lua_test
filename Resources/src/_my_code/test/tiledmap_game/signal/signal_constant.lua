@@ -1,7 +1,6 @@
 -- 信号常量
 
-local module = {}
-
+-- 枚举器
 local function createCounter()
     local i = 0
     return function() 
@@ -9,14 +8,8 @@ local function createCounter()
         return i
     end
 end
-
 local counter = createCounter()
 
-------------------信号常量-----------------
-module.YAOGAN = counter()
-------------------信号常量-----------------
 
-counter = nil
-createCounter = nil
-
-return module
+CreateLocalModule('_my_code.test.tiledmap_game.signal.signal_constant')
+YAOGAN = counter()

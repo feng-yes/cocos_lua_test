@@ -35,9 +35,9 @@ local function resetorder(sp)
     local p = cc.p(sp:getPosition())
     p = CC_POINT_POINTS_TO_PIXELS(p)
     sp:setPositionZ( -( (p.y+81) /81) )
-    sp:setLocalZOrder(50000 - math.floor((p.y+81) /81*100))
     -- 开启深度检测后，涉及到几个重叠节点的显示还是会受localz大小影响，统一设置localz=0无果，设置比较大的值后就正常了，先这么用吧-_-
     -- 保证靠前的节点zorder大一些则正常显示
+    sp:setLocalZOrder(10000 - math.floor((p.y+81) /81*100))
     print(10000 - math.floor((p.y+81) /81*100))
     print(sp:getPositionZ())
 end
@@ -68,7 +68,6 @@ end
 
 local function createMapTest()
     local ret = createTileDemoLayer("", "")
-    -- local map = ccexp.TMXTiledMap:create("TileMaps/orthogonal-test-vertexz.tmx")
     local map = ccexp.TMXTiledMap:create("mysource/tilmap_game/map/map.tmx")
     local layer1 = map:getLayer(MAP_LAYER1)
     MAP_X_NUM, MAP_Y_NUM = layer1:getLayerSize().width, layer1:getLayerSize().height
@@ -86,7 +85,7 @@ local function createMapTest()
     map:addChild(layerItem)
     print(layerItem:getLocalZOrder())
 
-    local mapItem = require('_my_code.test.tiledmap_game.map.map_item')
+    local mapItem = require('_my_code.test.tiledmap_game.res.map_item')
     local boy = mapItem.createMapItem(mapItem.boy1)
     -- layerWall:setTileGID(4, cc.p(0,MAP_Y_NUM-1))
     -- local boy = layerWall:getTileAt(cc.p(0,MAP_Y_NUM-1))

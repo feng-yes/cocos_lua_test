@@ -1,3 +1,4 @@
+-- 节点扩展
 
 local function doChange(strContent, nParentContent)
     local p1, p2, p3 = string.match(strContent, '([0-9.-]*)([%%]?)([0-9.-]*)')
