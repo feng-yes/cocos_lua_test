@@ -72,6 +72,13 @@ function cc.Node:SetContentSize(sW, sH)
     self:setContentSize(cc.size(w, h))
 end
 
+function cc.Node:GetContentSize()
+    local tContent = self:getContentSize()
+    return tContent.width, tContent.height
+end
+
+cc.Node.GetPosition = cc.Node.getPosition
+
 -- 开启触摸控制，触摸判定范围为节点contensize
 -- 触摸回调方法名: openTouchBegan(), openTouchMoved(), openTouchEnd()
 -- 其他回调方法/属性

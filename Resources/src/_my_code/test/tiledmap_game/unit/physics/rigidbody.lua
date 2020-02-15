@@ -4,8 +4,16 @@ local constant = require('_my_code.test.tiledmap_game.constant')
 
 CreateLocalModule('_my_code.test.tiledmap_game.unit.physics.rigidbody')
 
+-- 碰撞体基类
+cPhyBase = CreateClass()
+
+function cPhyBase:__init__()
+    self.type = nil
+end
+
+
 -- 圆形碰撞体
-cPhyRound = CreateClass()
+cPhyRound = CreateClass(cPhyBase)
 
 function cPhyRound:__init__(lCenter, nRadius)
     self.type = constant.RIGI_ROUND
@@ -16,7 +24,7 @@ function cPhyRound:__init__(lCenter, nRadius)
 end
 
 -- 矩形碰撞体
-cPhySquare = CreateClass()
+cPhySquare = CreateClass(cPhyBase)
 
 function cPhySquare:__init__(lCenter, nWidth, nHight)
     self.type = constant.RIGI_SQUARE

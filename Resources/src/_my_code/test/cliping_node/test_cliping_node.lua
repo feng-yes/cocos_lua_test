@@ -42,6 +42,23 @@ local function runClipNode()
     -- 显示蒙版的位置信息
     -- layer:addChild(GetStencilLayer())
 
+
+    local function onKeyPressed(keyCode, event)
+        print('pre', keyCode)
+    end
+
+    local function onKeyReleased(keyCode, event)
+        print('re', keyCode)
+
+    end
+
+    local listener = cc.EventListenerKeyboard:create()
+    listener:registerScriptHandler(onKeyPressed, cc.Handler.EVENT_KEYBOARD_PRESSED)  
+    listener:registerScriptHandler(onKeyReleased, cc.Handler.EVENT_KEYBOARD_RELEASED)
+    cc.Director:getInstance():getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, layer) 
+  
+    print(cc.FileUtils:getInstance():getStringFromFile('mysource/tilmap_game/map/logic_map.lua'))
+
     return layer
 end
 
