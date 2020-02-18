@@ -6,6 +6,7 @@ local slot = require('_my_code.test.tiledmap_game.signal.signal')
 local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant')
 local physics_object = require('_my_code.test.tiledmap_game.unit.physics.physics_object')
 local yaogan = require('_my_code.test.tiledmap_game.controller.player.yaogan')
+local keymap = require('_my_code.test.tiledmap_game.controller.keymap')
 
 CreateLocalModule('_my_code.test.tiledmap_game.controller.player.mgr')
 
@@ -16,7 +17,15 @@ local unit = nil
 local controlLayer = nil
 local lastAngle = nil
 
-local function doPressKeyMap(sKey)
+local function KeyToGan()
+    local nowMovePressList = keymap.getOnPressKeys({'W', 'A', 'S', 'D'})
+    local sKey
+    if #nowMovePressList >= 2 then
+        sKey = nowMovePressList[#nowMovePressList] .. nowMovePressList[#nowMovePressList-1]
+    elseif #nowMovePressList == 1 then
+        sKey = nowMovePressList[1]
+    end
+    
     if sKey == 'A' then
         yaogan.setKeyActionA()
     elseif sKey == 'S' then
@@ -25,12 +34,28 @@ local function doPressKeyMap(sKey)
         yaogan.setKeyActionD()
     elseif sKey == 'W' then
         yaogan.setKeyActionW()
+    elseif sKey == 'AS' or sKey == 'SA' then
+        yaogan.setKeyActionAS()
+    elseif sKey == 'SD' or sKey == 'DS' then
+        yaogan.setKeyActionSD()
+    elseif sKey == 'DW' or sKey == 'WD' then
+        yaogan.setKeyActionDW()
+    elseif sKey == 'WA' or sKey == 'AW' then
+        yaogan.setKeyActionWA()
+    else
+        yaogan.setActionStop()
+    end
+end
+
+local function doPressKeyMap(sKey)
+    if table.contents({'A', 'S', 'W', 'D'}, sKey) then
+        KeyToGan()
     end
 end
 
 local function doReleaseKeyMap(sKey)
     if table.contents({'A', 'S', 'W', 'D'}, sKey) then
-        yaogan.setActionStop()
+        KeyToGan()
     end
 end
 

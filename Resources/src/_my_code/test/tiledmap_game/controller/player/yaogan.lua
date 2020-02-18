@@ -111,6 +111,26 @@ function setKeyActionD()
     moveTouch(maxMoved, 0)
 end
 
+function setKeyActionWA()
+    beginTouch(0, 0)
+    moveTouch(-maxMoved, maxMoved)
+end
+
+function setKeyActionAS()
+    beginTouch(0, 0)
+    moveTouch(-maxMoved, -maxMoved)
+end
+
+function setKeyActionSD()
+    beginTouch(0, 0)
+    moveTouch(maxMoved, -maxMoved)
+end
+
+function setKeyActionDW()
+    beginTouch(0, 0)
+    moveTouch(maxMoved, maxMoved)
+end
+
 function setActionStop()
     endTouch()
 end

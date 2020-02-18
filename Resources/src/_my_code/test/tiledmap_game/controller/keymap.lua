@@ -15,19 +15,27 @@ local key_map = {
     [8] = 'tab',
 }
 
-onPressKey = {}
+local onPressKeys = {}
+
+function getOnPressKeys(keyArray)
+    if not keyArray then
+        return table.copy(onPressKeys)
+    end
+    assert(type(keyArray) == 'table')
+    return table.intersection(onPressKeys, keyArray)
+end
 
 function initKeyBoard()
     local function onKeyPressed(keyCode, event)
         if key_map[keyCode] then
-            table.insert(onPressKey, key_map[keyCode])
+            table.insert(onPressKeys, key_map[keyCode])
             slot.emit(slotConstant.KEYBOARD_PRESS, key_map[keyCode])
         end
     end
 
     local function onKeyReleased(keyCode, event)
         if key_map[keyCode] then
-            table.remove_v(onPressKey, key_map[keyCode])
+            table.remove_v(onPressKeys, key_map[keyCode])
             slot.emit(slotConstant.KEYBOARD_RELEASE, key_map[keyCode])
         end
     end
