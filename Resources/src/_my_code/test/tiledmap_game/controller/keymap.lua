@@ -2,7 +2,7 @@
 local slot = require('_my_code.test.tiledmap_game.signal.signal')
 local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant')
 
-CreateLocalModule('_my_code.test.tiledmap_game.controller.player.keymap')
+CreateLocalModule('_my_code.test.tiledmap_game.controller.keymap')
 
 local key_map = {
     [124] = 'A',

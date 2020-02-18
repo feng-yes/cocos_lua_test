@@ -17,6 +17,12 @@ function gameInit()
     -- 初始化上层显示及控制相关
     scene:addChild(controllerMgr.initLayer())
 
+    -- 初始化战场数据
+    local war = require('_my_code.test.tiledmap_game.game.war')
+    war:addWarSide1Player()
+
+	scene:addChild(CreateBackButton())
+
     return scene
 end
 

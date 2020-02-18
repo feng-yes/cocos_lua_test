@@ -2,7 +2,7 @@
 -- 进入游戏的操作界面
 
 local playerLayer = require('_my_code.test.tiledmap_game.controller.player.mgr')
-local keyBoardLayer = require('_my_code.test.tiledmap_game.controller.player.keymap')
+local keyBoardLayer = require('_my_code.test.tiledmap_game.controller.keymap')
 
 CreateLocalModule('_my_code.test.tiledmap_game.controller.game_mgr.game_panel')
 

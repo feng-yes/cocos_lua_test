@@ -1,5 +1,10 @@
 -- 面向对象
 
+-- 检查是否是类
+local function isclass(classObj)
+    return classObj.New and classObj.__init__
+end
+
 -- 检查是否超类
 local function issubclass(subCls, parentCls)
     while subCls do

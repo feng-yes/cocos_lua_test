@@ -14,32 +14,7 @@ local yaoganTag = 'yaogan'
 -- 接受控制的单位
 local unit = nil
 local controlLayer = nil
-
-function initLayer()
-    controlLayer = cc.Layer:create()
-    controlLayer:addChild(yaogan.initYaoganLayer(), 0, yaoganTag)
-    return controlLayer
-end
-
-function setUnitAndOpenControl(unit)
-    assert(unit:IsInstance(physics_object.cPhysicsBody))
-    unit = unit
-    
-    -- 注册键盘事件
-    slot.register(slotConstant.KEYBOARD_PRESS, doPressKeyMap)
-    slot.register(slotConstant.KEYBOARD_RELEASE, doReleaseKeyMap)
-
-    -- 注册移动事件（摇杆）
-    slot.register(slotConstant.YAOGAN, doTouchGan)
-end
-
-function unSetUnit()
-    unit = nil
-
-    slot.unregister(slotConstant.KEYBOARD_PRESS, doPressKeyMap)
-    slot.unregister(slotConstant.KEYBOARD_RELEASE, doReleaseKeyMap)
-    slot.unregister(slotConstant.YAOGAN, doTouchGan)
-end
+local lastAngle = nil
 
 local function doPressKeyMap(sKey)
     if sKey == 'A' then
@@ -59,7 +34,6 @@ local function doReleaseKeyMap(sKey)
     end
 end
 
-local lastAngle = nil
 local function doTouchGan(bMove, nAngle, speed)
     if not bMove then
         unit:actMove(false)
@@ -71,4 +45,33 @@ local function doTouchGan(bMove, nAngle, speed)
         unit:actMove(bMove, nAngle, speed)
         lastAngle = nAngle
     end
+end
+
+function initLayer()
+    controlLayer = cc.Layer:create()
+    controlLayer:addChild(yaogan.initYaoganLayer(), 0, yaoganTag)
+    return controlLayer
+end
+
+function setUnitAndOpenControl(oUnit)
+    assert(oUnit:IsInstance(physics_object.cPhysicsBody))
+    if unit then
+        unSetUnit()
+    end
+    unit = oUnit
+    
+    -- 注册键盘事件
+    slot.register(slotConstant.KEYBOARD_PRESS, doPressKeyMap)
+    slot.register(slotConstant.KEYBOARD_RELEASE, doReleaseKeyMap)
+
+    -- 注册移动事件（摇杆）
+    slot.register(slotConstant.YAOGAN, doTouchGan)
+end
+
+function unSetUnit()
+    unit = nil
+
+    slot.unregister(slotConstant.KEYBOARD_PRESS, doPressKeyMap)
+    slot.unregister(slotConstant.KEYBOARD_RELEASE, doReleaseKeyMap)
+    slot.unregister(slotConstant.YAOGAN, doTouchGan)
 end

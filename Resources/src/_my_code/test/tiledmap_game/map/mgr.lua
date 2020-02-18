@@ -9,18 +9,24 @@ local tagItemLayer = 1
 
 local map = nil
 
-function initMapLayer()
-    local ret, mapObj = map.initLayer()
-    map = mapObj
-
+local function initMap()
+    map:setScale(0.6)
     -- 挂在地图的物体都放这个layer
     local layerItem = cc.Layer:create()
     map:addChild(layerItem, 0, tagItemLayer)
-
-    return ret
 end
 
 function addChild(obj)
+    print('addChild12',map)
     local layerItem = map:getChildByTag(tagItemLayer)
     layerItem:addChild(obj)
+end
+
+function initMapLayer()
+    local ret, mapObj = tiledmap.initLayer()
+    print('init1',mapObj)
+    map = mapObj
+    initMap()
+
+    return ret
 end

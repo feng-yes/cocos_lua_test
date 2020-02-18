@@ -1,14 +1,14 @@
 
 local mapItem = require('_my_code.test.tiledmap_game.res.map_item')
-local cChild = require('_my_code.test.tiledmap_game.soldier.child')
+local cChild = require('_my_code.test.tiledmap_game.unit.soldier.child')
 
-CreateLocalModule('_my_code.test.tiledmap_game.soldier.child_mgr')
+CreateLocalModule('_my_code.test.tiledmap_game.unit.soldier.child_mgr')
 
 
 function createChild(sp)
     local oChild = cChild:New()
     oChild:setSp(sp)
-    return sp
+    return oChild
 end
 
 function createPlayer1()

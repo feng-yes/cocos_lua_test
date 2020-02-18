@@ -61,7 +61,7 @@ local function endTouch(x, y)
 end
 
 local function createBg()
-    local bg = cc.Sprite:create("mysource/tilmap_game/yaogan/bei.png")
+    bg = cc.Sprite:create("mysource/tilmap_game/yaogan/bei.png")
     bg:setScale(0.5)
     bg:SetPosition(50, 50)
     bg:setOpacity(180)
@@ -69,7 +69,7 @@ local function createBg()
 end
 
 local function createGan(bg)
-    local gan = cc.Sprite:create("mysource/tilmap_game/yaogan/anniu.png")
+    gan = cc.Sprite:create("mysource/tilmap_game/yaogan/anniu.png")
     gan:setScale(0.2)
     gan:setOpacity(180)
     gan:SetPosition(bg:getPosition())

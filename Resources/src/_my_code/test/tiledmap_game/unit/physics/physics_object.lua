@@ -38,6 +38,10 @@ end
 
 -- 移动及位置interface
 
+function cPhysicsBody:getLayer()
+    return self.layer
+end
+
 function cPhysicsBody:setPosi(x, y)
     self.layer:SetPosition(x, y)
 end
