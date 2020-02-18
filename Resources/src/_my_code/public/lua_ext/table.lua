@@ -36,3 +36,14 @@ function table.remove_v(array, value)
         end
     end
 end
+
+-- 两个array的交集array
+function table.intersection(array1, array2)
+    local array3 = {}
+    for i, v in ipairs(array1) do
+        if table.contents(array2, v) then
+            table.insert(array3, v)
+        end
+    end
+    return array3
+end

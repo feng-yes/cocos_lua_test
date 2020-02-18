@@ -3,8 +3,5 @@
 return function()
     -- body
 
-    local m = require('_my_code.test.public_test.module_test')
-    print(m.IOPP)
-    m.ee(123)
-    print(IOPP)
+    print(table.intersection({'S', 'S', 'wse', 's', 'W', 'ecfe', 'D'}, {'D', 'S', "A", 'W'}))
 end
