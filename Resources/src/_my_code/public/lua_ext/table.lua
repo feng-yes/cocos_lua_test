@@ -28,6 +28,7 @@ function table.contents(array, value)
     return false
 end
 
+-- 移除值（仅第一个）
 function table.remove_v(array, value)
     for i, v in ipairs(array) do
         if v == value then
