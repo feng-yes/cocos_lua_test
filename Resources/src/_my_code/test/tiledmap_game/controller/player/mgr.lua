@@ -65,11 +65,12 @@ local function doTouchGan(bMove, nAngle, speed)
         lastAngle = nil
         return
     end
+    
     -- 大于15度的移动才生效
-    if not lastAngle or math.abs(nAngle - lastAngle) > 15 / 180 * math.pi then
-        unit:actMove(bMove, nAngle, speed)
-        lastAngle = nAngle
-    end
+    -- if not lastAngle or math.abs(nAngle - lastAngle) > 15 / 180 * math.pi then
+    unit:actMove(bMove, nAngle, speed)
+    --     lastAngle = nAngle
+    -- end
 end
 
 function initLayer()

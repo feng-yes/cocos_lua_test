@@ -1,5 +1,6 @@
 
 local rigibody = require('_my_code.test.tiledmap_game.unit.physics.rigidbody')
+local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
 
 CreateLocalModule('_my_code.test.tiledmap_game.unit.physics.physics_object')
 
@@ -37,6 +38,9 @@ function cPhysicsBody:onCrash(oCrashObj)
 end
 
 -- 移动及位置interface
+function cPhysicsBody:getSp()
+    return self._sp
+end
 
 function cPhysicsBody:getLayer()
     return self.layer
@@ -44,6 +48,7 @@ end
 
 function cPhysicsBody:setPosi(x, y)
     self.layer:SetPosition(x, y)
+    mapInterface.resetorder(self.layer)
 end
 
 function cPhysicsBody:getPosi()

@@ -17,6 +17,19 @@ MAP_BG_GZ = -2^10
 RIGI_ROUND = 1
 RIGI_SQUARE = 2
 
--- 人物相关
+--============================ 人物相关
 -- 精灵相对layer向上偏移量
 CHILD_SP_DEFAULTY = 16
+-- 动作状态机名称
+CHILD_ACTION_STAND = 'stand'
+CHILD_ACTION_WALK = 'walk'
+
+-- layer动作tag
+-- 移动定时器tag
+CHILD_LAYER_ACTION_TAG_MOVE = 1
+
+-- bg动作tag
+-- 移动跳跃
+CHILD_BG_ACTION_TAG_MOVE = 1
+
+--============================
