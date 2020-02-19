@@ -9,10 +9,6 @@ function cAction:__init__(mgr, soldier)
 
     self._nextActionMove = true
     self._nextMovePara = {}
-
-    self._stepTime = 0.5
-    self._stepHigh = 20
-    self._stepWidth = 60
 end
 
 function cAction:_stepRepeat(moveFun)
@@ -32,11 +28,11 @@ function cAction:openStatus(lPara)
     local beginStepTime = os.clock()
     local xPre, yPre = self._soldier:getPosi()
     local function moveFun()
-        local nLong = self._stepWidth * nSpeed / self._stepTime * (os.clock() - beginStepTime)
+        local nLong = constant.CHILD_WALK_STEPWIDTH * nSpeed / constant.CHILD_WALK_STEPTIME * (os.clock() - beginStepTime)
         local nXLong = nLong * math.cos(nDirection)
         local nYLong = nLong * math.sin(nDirection)
         self._soldier:setPosi(xPre + nXLong, yPre + nYLong)
-        if os.clock() - beginStepTime < self._stepTime then
+        if os.clock() - beginStepTime < constant.CHILD_WALK_STEPTIME then
             self:_stepRepeat(moveFun)
         else
             self:_finishStep()
@@ -46,7 +42,7 @@ function cAction:openStatus(lPara)
 
     -- jump
     local jumpAction = self._soldier:getSp():runAction(
-        cc.JumpBy:create(self._stepTime, cc.p(0,0), self._stepHigh, 1)
+        cc.JumpBy:create(constant.CHILD_WALK_STEPTIME, cc.p(0,0), constant.CHILD_WALK_STEPHIGH, 1)
     )
     jumpAction:setTag(constant.CHILD_BG_ACTION_TAG_MOVE)
 end

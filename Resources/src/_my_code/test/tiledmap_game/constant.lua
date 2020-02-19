@@ -24,12 +24,15 @@ CHILD_SP_DEFAULTY = 16
 CHILD_ACTION_STAND = 'stand'
 CHILD_ACTION_WALK = 'walk'
 
+-- 行走相关
+CHILD_WALK_STEPTIME = 0.5  -- 步速（每一步时间）
+CHILD_WALK_STEPHIGH = 20  -- 步高
+CHILD_WALK_STEPWIDTH = 60  -- 步长
+
 -- layer动作tag
--- 移动定时器tag
-CHILD_LAYER_ACTION_TAG_MOVE = 1
+CHILD_LAYER_ACTION_TAG_MOVE = 1  -- 移动定时器tag
 
 -- bg动作tag
--- 移动跳跃
-CHILD_BG_ACTION_TAG_MOVE = 1
+CHILD_BG_ACTION_TAG_MOVE = 1  -- 移动跳跃
 
 --============================

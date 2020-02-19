@@ -65,6 +65,21 @@ local function createBg()
     bg:setScale(0.5)
     bg:SetPosition(50, 50)
     bg:setOpacity(180)
+    
+    bg:OpenTouch()
+    bg.openTouchBegan = function(touch)
+        beginTouch(bg:getPosition())
+        moveTouch(touch:getLocation().x, touch:getLocation().y)
+        return true
+    end
+
+    bg.openTouchMoved = function(touch)
+        moveTouch(touch:getLocation().x, touch:getLocation().y)
+    end
+
+    bg.openTouchEnd = function(touch)
+        endTouch(touch:getLocation().x, touch:getLocation().y)
+    end 
     return bg
 end
 

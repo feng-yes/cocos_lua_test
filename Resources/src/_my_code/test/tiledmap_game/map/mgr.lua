@@ -11,7 +11,7 @@ local tagItemLayer = 1
 local map = nil
 
 local function initMap()
-    map:setScale(0.6)
+    map:setScale(0.8)
     -- 挂在地图的物体都放这个layer
     local layerItem = cc.Layer:create()
     map:addChild(layerItem, 0, tagItemLayer)
