@@ -10,8 +10,13 @@ MAP_Y_NUM = 0
 MAP_LAYER1 = 'land'
 MAP_LAYER2 = 'wall'
 MAP_LAYER3 = 'top'
+-- 地图下背景层的globalZ
+MAP_BG_GZ = -2^10
 
 -- 刚体模型
 RIGI_ROUND = 1
 RIGI_SQUARE = 2
 
+-- 人物相关
+-- 精灵相对layer向上偏移量
+CHILD_SP_DEFAULTY = 16

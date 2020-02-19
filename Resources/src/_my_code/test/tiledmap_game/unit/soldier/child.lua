@@ -1,3 +1,5 @@
+
+local constant = require('_my_code.test.tiledmap_game.constant')
 local physics_object = require('_my_code.test.tiledmap_game.unit.physics.physics_object')
 
 local cChild = CreateClass(physics_object.cPhysicsBody)
@@ -11,9 +13,9 @@ function cChild:__init__()
     self._nWarSide = 0
 end
 
-
 function cChild:setSp(sp)
     self._sp = sp
+    self._sp:SetPosition(0, constant.CHILD_SP_DEFAULTY)
     self.layer:addChild(sp)
 end
 

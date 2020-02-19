@@ -2,6 +2,7 @@
 -- 地图模块管理
 
 local tiledmap = require('_my_code.test.tiledmap_game.map.tiledmap')
+local bg = require('_my_code.test.tiledmap_game.map.bg')
 
 CreateLocalModule('_my_code.test.tiledmap_game.map.mgr')
 
@@ -17,16 +18,19 @@ local function initMap()
 end
 
 function addChild(obj)
-    print('addChild12',map)
     local layerItem = map:getChildByTag(tagItemLayer)
     layerItem:addChild(obj)
 end
 
 function initMapLayer()
+    local mainLayer = cc.Layer:create() 
     local ret, mapObj = tiledmap.initLayer()
-    print('init1',mapObj)
     map = mapObj
     initMap()
 
-    return ret
+    local bgSp = bg.createBG()
+    mainLayer:addChild(bgSp)
+    bgSp:SetPosition('50%', '50%')
+    mainLayer:addChild(ret)
+    return mainLayer
 end

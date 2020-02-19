@@ -113,9 +113,9 @@ local function createCloseBtn()
 end
 
 local function createBG()
-    local bg = cc.Sprite:create("mysource/pic/lbg.png")
+    local bg = cc.Sprite:create("mysource/pic/bg1.png")
 	bg:setPosition(cc.p(VisibleRect:center().x, VisibleRect:center().y))
-	bg:setScale(0.6)
+	bg:setScaleY(1.1)
 	return bg
 end
 

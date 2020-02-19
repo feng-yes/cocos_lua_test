@@ -1,4 +1,5 @@
 
+local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
 local constant = require('_my_code.test.tiledmap_game.constant')
 
 CreateLocalModule('_my_code.test.tiledmap_game.map.tiledmap')
@@ -57,16 +58,6 @@ function initLayer()
     constant.MAP_X_NUM, constant.MAP_Y_NUM = layer1:getLayerSize().width, layer1:getLayerSize().height
 
     ret:addChild(map, 0, tagTileMap)
-    
-    -- 地图层设置cc_vertexz后，不设置2d方向cc_vertexz ~= 0的层都显示不出来
-    local function onNodeEvent(event)
-        if event == "enter" then
-            cc.Director:getInstance():setProjection(cc.DIRECTOR_PROJECTION2_D )
-        elseif event == "exit" then
-            cc.Director:getInstance():setProjection(cc.DIRECTOR_PROJECTION_DEFAULT )
-        end
-    end
-
-    ret:registerScriptHandler(onNodeEvent)
+    mapInterface.addProjectionEvent(ret)
     return ret, map
 end

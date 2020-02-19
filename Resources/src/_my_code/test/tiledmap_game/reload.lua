@@ -9,6 +9,7 @@ local function doReload()
     package.loaded['_my_code.test.tiledmap_game.map.mgr'] = nil
     package.loaded['_my_code.test.tiledmap_game.map.interface'] = nil
     package.loaded['_my_code.test.tiledmap_game.map.tiledmap'] = nil
+    package.loaded['_my_code.test.tiledmap_game.map.bg'] = nil
     package.loaded['_my_code.test.tiledmap_game.res.map_item'] = nil
     package.loaded['_my_code.test.tiledmap_game.signal.signal_constant'] = nil
     package.loaded['_my_code.test.tiledmap_game.signal.signal'] = nil
