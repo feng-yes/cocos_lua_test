@@ -54,6 +54,9 @@ function cPhysicsBody:setPosi(x, y)
     self.layer:SetPosition(x, y)
     mapInterface.resetorder(self.layer)
     self._lMapPoint = mapInterface.getMapPoint({x, y})
+    if bPhysics then
+        self.oRigiBody.lCenter = {x, y}
+    end
 end
 
 function cPhysicsBody:setPosiByPoint(lPoint)
@@ -63,6 +66,10 @@ end
 
 function cPhysicsBody:getPosi()
     return self.layer:getPosition()
+end
+
+function cPhysicsBody:getMapPoint()
+    return self._lMapPoint
 end
 
 -- ===============================动作指令（输入接口，暂时写这里）

@@ -27,16 +27,40 @@ function cAction:openStatus(lPara)
 
     -- move
     local beginStepTime = os.clock()
-    local xPre, yPre = self._soldier:getPosi()
+    local lastMoveTime = beginStepTime
     local function moveFun()
-        local nLong = constant.CHILD_WALK_STEPWIDTH * nSpeed / constant.CHILD_WALK_STEPTIME * (os.clock() - beginStepTime)
+        local now = os.clock()
+        local xPre, yPre = self._soldier:getPosi()
+        local nLong = constant.CHILD_WALK_STEPWIDTH * nSpeed / constant.CHILD_WALK_STEPTIME * (now - lastMoveTime)
+        lastMoveTime = now
+
         local nXLong = nLong * math.cos(nDirection)
         local nYLong = nLong * math.sin(nDirection)
-        self._soldier:setPosi(xPre + nXLong, yPre + nYLong)
-        if os.clock() - beginStepTime < constant.CHILD_WALK_STEPTIME then
-            self:_stepRepeat(moveFun)
+        local nAimX, nAimY = xPre + nXLong, yPre + nYLong
+
+        local bCango = mapInterface.canGotoPosi(self._soldier, {nAimX, nAimY})
+        if not bCango then
+            -- 修正
+            local lAimPoint = mapInterface.getPosiFix(self._soldier, {xPre, yPre}, {nAimX, nAimY})
+            if lAimPoint then
+                nAimX, nAimY = unpack(lAimPoint)
+                bCango = true
+            end
+        end
+
+        if bCango then
+            self._soldier:setPosi(nAimX, nAimY)
+            if now - beginStepTime < constant.CHILD_WALK_STEPTIME then
+                self:_stepRepeat(moveFun)
+            else
+                self:_finishStep()
+            end
         else
-            self:_finishStep()
+            local walkAction = self._soldier:getLayer():runAction(cc.Sequence:create(
+                cc.DelayTime:create(beginStepTime + constant.CHILD_WALK_STEPTIME - now),
+                cc.CallFunc:create(functor(self._finishStep, self))
+            ))
+            walkAction:setTag(constant.CHILD_LAYER_ACTION_TAG_MOVE)
         end
     end
     self:_stepRepeat(moveFun)

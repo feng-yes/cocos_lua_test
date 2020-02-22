@@ -1,10 +1,10 @@
 
 
+local function tt()
+end
+
 return function()
     -- body
-
-    MAP_HOUSE_AREA = {
-    }
-    print(table.random_pop(MAP_HOUSE_AREA))
-    print(MAP_HOUSE_AREA)
+    local a, b = tt()
+    print(a, b)
 end

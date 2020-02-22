@@ -1,6 +1,7 @@
 
 local constant = require('_my_code.test.tiledmap_game.constant')
 local physics_object = require('_my_code.test.tiledmap_game.unit.physics.physics_object')
+local rigidbody = require('_my_code.test.tiledmap_game.unit.physics.rigidbody')
 local cActionMgr = require('_my_code.test.tiledmap_game.unit.soldier.action_component.action_mgr')
 
 local cChild = CreateClass(physics_object.cPhysicsBody)
@@ -12,6 +13,13 @@ function cChild:__init__()
 
     -- 战场数据
     self._nWarSide = 0
+
+    self:_initPhy()
+end
+
+function cChild:_initPhy()
+    local rigid = rigidbody.cPhySquare:New({self:getPosi()}, 30, 20)
+    self:setRigiBody(rigid)
 end
 
 function cChild:setSp(sp)

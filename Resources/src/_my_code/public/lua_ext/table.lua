@@ -46,7 +46,7 @@ function table.random_get(array)
         return 0, nil
     end
     local randomNum = math.random(#array)
-    return randomNum, array[randomNum]
+    return array[randomNum], randomNum
 end
 
 function table.random_pop(array)
@@ -54,7 +54,7 @@ function table.random_pop(array)
         return 0, nil
     end
     local randomNum = math.random(#array)
-    return randomNum, table.remove(array, randomNum)
+    return table.remove(array, randomNum), randomNum
 end
 
 function table.arr_bubble_sort(array, cmp)

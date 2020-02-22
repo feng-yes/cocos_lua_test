@@ -1,4 +1,5 @@
 
+local constant = require('_my_code.test.tiledmap_game.constant')
 local childMgr = require('_my_code.test.tiledmap_game.unit.soldier.child_mgr')
 local mapMgr = require('_my_code.test.tiledmap_game.map.mgr')
 local controlPlayerMgr = require('_my_code.test.tiledmap_game.controller.player.mgr')
@@ -20,6 +21,7 @@ end
 function cWar:addWarSide1Player()
     local child1 = childMgr.createPlayer1()
     mapMgr.addChild(child1:getLayer())
+    child1:setPosiByPoint(table.random_get(constant.MAP_START_AREA))
     self:setControlPlayer(child1)
 end
 
