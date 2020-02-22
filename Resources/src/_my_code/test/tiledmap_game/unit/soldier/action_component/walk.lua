@@ -56,6 +56,7 @@ function cAction:openStatus(lPara)
                 self:_finishStep()
             end
         else
+            -- 修正无效，不再逐帧计算
             local walkAction = self._soldier:getLayer():runAction(cc.Sequence:create(
                 cc.DelayTime:create(beginStepTime + constant.CHILD_WALK_STEPTIME - now),
                 cc.CallFunc:create(functor(self._finishStep, self))
