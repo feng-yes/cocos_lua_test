@@ -40,6 +40,23 @@ function table.intersection(array1, array2)
     return array3
 end
 
+-- 随机选取
+function table.random_get(array)
+    if #array == 0 then
+        return 0, nil
+    end
+    local randomNum = math.random(#array)
+    return randomNum, array[randomNum]
+end
+
+function table.random_pop(array)
+    if #array == 0 then
+        return 0, nil
+    end
+    local randomNum = math.random(#array)
+    return randomNum, table.remove(array, randomNum)
+end
+
 function table.arr_bubble_sort(array, cmp)
     local len = #array
     local i = len  

@@ -7,7 +7,7 @@ CreateLocalModule('_my_code.test.tiledmap_game.unit.physics.physics_object')
 -- 物理体对象列表，进行碰撞检测
 lPhysicsObject = {}
 
--- 带物理性质（碰撞）的物体都要继承此类
+-- 地图物体都要继承此类
 cPhysicsBody = CreateClass()
 
 function cPhysicsBody:__init__()
@@ -17,6 +17,10 @@ function cPhysicsBody:__init__()
 
     -- cocos主节点
     self.layer = nil 
+    self._sp = nil
+
+    -- 位置
+    self._lMapPoint = {0, 0}
 end
 
 function cPhysicsBody:setRigiBody(oRigiBody)
@@ -31,13 +35,7 @@ function cPhysicsBody:lostPhysics()
     table.remove_v(lPhysicsObject, self)
 end
 
--- ===============================碰撞相关
-
--- 碰撞时回调
-function cPhysicsBody:onCrash(oCrashObj)
-end
-
--- 移动及位置interface
+-- ===============================节点
 function cPhysicsBody:getSp()
     return self._sp
 end
@@ -46,9 +44,21 @@ function cPhysicsBody:getLayer()
     return self.layer
 end
 
+-- ===============================碰撞相关
+-- 碰撞时回调
+function cPhysicsBody:onCrash(oCrashObj)
+end
+
+-- ===============================地图位置相关
 function cPhysicsBody:setPosi(x, y)
     self.layer:SetPosition(x, y)
     mapInterface.resetorder(self.layer)
+    self._lMapPoint = mapInterface.getMapPoint({x, y})
+end
+
+function cPhysicsBody:setPosiByPoint(lPoint)
+    local lPosi = mapInterface.getMapPosi(lPoint)
+    self:setPosi(unpack(lPosi))
 end
 
 function cPhysicsBody:getPosi()

@@ -1,5 +1,6 @@
 
--- 其他模块需要调用的地图相关接口放这里
+-- 一些外调的地图相关接口放这里
+local constant = require('_my_code.test.tiledmap_game.constant')
 
 CreateLocalModule('_my_code.test.tiledmap_game.map.interface')
 
@@ -28,4 +29,16 @@ function addProjectionEvent(node)
     end
 
     node:registerScriptHandler(onNodeEvent)
+end
+
+function getMapPoint(lPosi)
+    local xStart, yStart = unpack(constant.MAP_ZERO_POINT)
+    local x = math.floor((lPosi[1] - xStart) / constant.MAP_CELL_WIDTH) 
+    local y = math.floor((lPosi[2] - yStart) / constant.MAP_CELL_HIGH)
+    return {x, y}
+end
+
+function getMapPosi(lPoint)
+    local xStart, yStart = unpack(constant.MAP_ZERO_POINT)
+    return {(lPoint[1] + 0.5) * constant.MAP_CELL_WIDTH + xStart, (lPoint[2] + 0.5) * constant.MAP_CELL_WIDTH + yStart}
 end

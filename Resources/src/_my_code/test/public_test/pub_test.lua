@@ -3,5 +3,8 @@
 return function()
     -- body
 
-    print(os.clock())
+    MAP_HOUSE_AREA = {
+    }
+    print(table.random_pop(MAP_HOUSE_AREA))
+    print(MAP_HOUSE_AREA)
 end

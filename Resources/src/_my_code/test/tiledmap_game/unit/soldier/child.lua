@@ -11,7 +11,6 @@ function cChild:__init__()
     self._actionMgr = cActionMgr:New(self)
 
     -- 战场数据
-    self._lMapPoint = {0, 0}
     self._nWarSide = 0
 end
 

@@ -1,5 +1,6 @@
 
 local constant = require('_my_code.test.tiledmap_game.constant')
+local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
 
 local base = require('_my_code.test.tiledmap_game.unit.soldier.action_component.acrtion_base')
 local cAction, Super = CreateClass(base)
@@ -44,12 +45,12 @@ function cAction:openStatus(lPara)
     local jumpAction = self._soldier:getSp():runAction(
         cc.JumpBy:create(constant.CHILD_WALK_STEPTIME, cc.p(0,0), constant.CHILD_WALK_STEPHIGH, 1)
     )
-    jumpAction:setTag(constant.CHILD_BG_ACTION_TAG_MOVE)
+    jumpAction:setTag(constant.CHILD_SP_ACTION_TAG_MOVE)
 end
 
 function cAction:_reset()
     self._soldier:getLayer():stopActionByTag(constant.CHILD_LAYER_ACTION_TAG_MOVE)
-    self._soldier:getSp():stopActionByTag(constant.CHILD_BG_ACTION_TAG_MOVE)
+    self._soldier:getSp():stopActionByTag(constant.CHILD_SP_ACTION_TAG_MOVE)
     self._soldier:getSp():SetPosition(0, constant.CHILD_SP_DEFAULTY)
 end
 
