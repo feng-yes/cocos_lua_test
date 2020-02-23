@@ -72,12 +72,12 @@ local function initTouch()
         sp:setVisible(true)
         sp:runAction(cc.Spawn:create(
             cc.Sequence:create(
-                cc.ScaleTo:create(0.2, 0.5),
-                cc.ScaleTo:create(0.2, 0.3)
+                cc.ScaleTo:create(0.1, 0.5),
+                cc.ScaleTo:create(0.1, 0.3)
             ),
             cc.Sequence:create(
-                cc.FadeTo:create(0.2, 180),
-                cc.FadeTo:create(0.2, 255)
+                cc.FadeTo:create(0.1, 180),
+                cc.FadeTo:create(0.1, 255)
             )
         ))
         return true
@@ -91,6 +91,11 @@ local function initTouch()
         local currentPosX, currentPosY= camera:getPosition()
         camera:setPosition(cc.p(currentPosX - diff.x * nScale, currentPosY - diff.y * nScale))
         camera:getChildByTag(spCameraTag):SetPosition(touches[1]:getLocation().x, touches[1]:getLocation().y)
+
+        -- local x1, y1 = camera:getPosition()
+        -- local x2, y2 = camera:getChildByTag(spCameraTag):getPosition()
+        -- local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
+        -- print(mapInterface.getMapPoint({(x1 / nScale + x2), (y1 / nScale + y2)}))
     end
 
     local function onTouchesEnd(touches, event)
