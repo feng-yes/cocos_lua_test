@@ -12,6 +12,7 @@ function cChild:__init__()
     self._actionMgr = cActionMgr:New(self)
 
     -- 战场数据
+    self.nWarUiId = 0
     self.nWarSide = 0
 
     self:_initPhy()

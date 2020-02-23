@@ -51,7 +51,6 @@ function cAction:openStatus(lPara)
 
         if bCango then
             self._soldier:setPosi(nAimX, nAimY)
-            camera.setPosi({nAimX, nAimY})
             if now - beginStepTime < constant.CHILD_WALK_STEPTIME then
                 self:_stepRepeat(moveFun)
             else

@@ -10,8 +10,6 @@ local keymap = require('_my_code.test.tiledmap_game.controller.keymap')
 
 CreateLocalModule('_my_code.test.tiledmap_game.controller.player.mgr')
 
-local yaoganTag = 'yaogan'
-
 -- 接受控制的单位
 local unit = nil
 local controlLayer = nil
@@ -75,7 +73,7 @@ end
 
 function initLayer()
     controlLayer = cc.Layer:create()
-    controlLayer:addChild(yaogan.initYaoganLayer(), 0, yaoganTag)
+    controlLayer:addChild(yaogan.initYaoganLayer())
     return controlLayer
 end
 

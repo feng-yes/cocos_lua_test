@@ -10,6 +10,10 @@ boy1 = 'map_item003.png'
 boy2 = 'map_item002.png'
 boy3 = 'map_item004.png'
 
+key = 'map_item006.png'
+heart = 'map_item010.png'
+beetle = 'map_item009.png'
+
 function createMapItem(frameName)
     return cc.Sprite:createWithSpriteFrameName(frameName)
 end

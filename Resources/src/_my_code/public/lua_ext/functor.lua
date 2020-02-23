@@ -3,8 +3,8 @@ function functor(func, ...)
     local args = {...}
     local n = select('#', ...)
 
-    local function run()
-        func(unpack(args, 1, n))
+    local function run(...)
+        func(unpack(args, 1, n), ...)
     end
 
     return run

@@ -94,6 +94,9 @@ function cc.Node:OpenTouch()
             return
         end
         self.bOpenTouching = true
+        if self.openTouchIn then 
+            self.openTouchIn(touch, event)
+        end
         if self.openTouchBegan then
             return self.openTouchBegan(touch, event)
         end

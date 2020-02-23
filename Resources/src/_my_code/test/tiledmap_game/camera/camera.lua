@@ -6,9 +6,12 @@ local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant
 
 CreateLocalModule('_my_code.test.tiledmap_game.camera.camera')
 
+local spCameraTag = 1
 local nScale = 1.2
 local nXFix = 0
 local nYFix = 0
+
+local bOpenTouch = false
 
 camera = nil
 
@@ -55,9 +58,63 @@ local function doReleaseKeyMap(sKey)
     end
 end
 
+local function setTouchOpen(bOpen)
+    bOpenTouch = bOpen
+end
+
+local function initTouch()
+    local function onTouchesBegan(touches, event)
+        if not bOpenTouch then
+            return
+        end
+        local sp = camera:getChildByTag(spCameraTag)
+        sp:SetPosition(touches[1]:getLocation().x, touches[1]:getLocation().y)
+        sp:setVisible(true)
+        sp:runAction(cc.Spawn:create(
+            cc.Sequence:create(
+                cc.ScaleTo:create(0.2, 0.5),
+                cc.ScaleTo:create(0.2, 0.3)
+            ),
+            cc.Sequence:create(
+                cc.FadeTo:create(0.2, 180),
+                cc.FadeTo:create(0.2, 255)
+            )
+        ))
+        return true
+    end
+
+    local function onTouchesMoved(touches, event)
+        if not bOpenTouch then
+            return
+        end
+        local diff = touches[1]:getDelta()
+        local currentPosX, currentPosY= camera:getPosition()
+        camera:setPosition(cc.p(currentPosX - diff.x * nScale, currentPosY - diff.y * nScale))
+        camera:getChildByTag(spCameraTag):SetPosition(touches[1]:getLocation().x, touches[1]:getLocation().y)
+    end
+
+    local function onTouchesEnd(touches, event)
+        if not bOpenTouch then
+            return
+        end
+        local sp = camera:getChildByTag(spCameraTag)
+        sp:stopAllActions()
+        sp:setScale(0.3)
+        sp:setVisible(false)
+    end
+
+    local listener = cc.EventListenerTouchAllAtOnce:create()
+    listener:registerScriptHandler(onTouchesBegan,cc.Handler.EVENT_TOUCHES_BEGAN)
+    listener:registerScriptHandler(onTouchesMoved,cc.Handler.EVENT_TOUCHES_MOVED)
+    listener:registerScriptHandler(onTouchesEnd,cc.Handler.EVENT_TOUCHES_ENDED)
+    local eventDispatcher = camera:getEventDispatcher()
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, camera)
+end
+
 local function registerSlot()
     slot.register(slotConstant.CAMERA_FOCUS_MOVE, moveSlow)
     slot.register(slotConstant.CAMERA_FOCUS, setPosi)
+    slot.register(slotConstant.CAMERA_TOUCH_OPEN, setTouchOpen)
     slot.register(slotConstant.KEYBOARD_RELEASE, doReleaseKeyMap)
 end
 
@@ -67,17 +124,12 @@ function init()
     camera:setCameraFlag(constant.MAP_CAMERA_FLAG)
     -- setPosi({-s.width/2, -s.height/2})
     camera:setScale(nScale)
-
-    local function onTouchesMoved(touches, event)
-        local diff = touches[1]:getDelta()
-        local currentPosX, currentPosY= camera:getPosition()
-        camera:setPosition(cc.p(currentPosX - diff.x * nScale, currentPosY - diff.y * nScale))
-    end
-
-    local listener = cc.EventListenerTouchAllAtOnce:create()
-    listener:registerScriptHandler(onTouchesMoved,cc.Handler.EVENT_TOUCHES_MOVED )
-    local eventDispatcher = camera:getEventDispatcher()
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, camera)
+    initTouch()
+    local spCamera = cc.Sprite:create('mysource/tilmap_game/pic/camera.png')
+    spCamera:setScale(0.3)
+    spCamera:setVisible(false)
+    spCamera:setCameraMask(constant.MAP_CAMERA_FLAG)
+    camera:addChild(spCamera, 0, spCameraTag)
 
     nXFix = -s.width/2 
     nYFix = -s.height/2
