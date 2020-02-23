@@ -12,7 +12,7 @@ function cChild:__init__()
     self._actionMgr = cActionMgr:New(self)
 
     -- 战场数据
-    self._nWarSide = 0
+    self.nWarSide = 0
 
     self:_initPhy()
 end
@@ -26,6 +26,7 @@ function cChild:setSp(sp)
     self._sp = sp
     self._sp:SetPosition(0, constant.CHILD_SP_DEFAULTY)
     self.layer:addChild(sp)
+    self.layer:setCameraMask(constant.MAP_CAMERA_FLAG)
 end
 
 function cChild:setParent(parent, nZorder, nTag)

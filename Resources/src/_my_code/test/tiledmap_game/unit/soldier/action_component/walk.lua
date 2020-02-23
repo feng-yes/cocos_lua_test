@@ -1,5 +1,6 @@
 
 local constant = require('_my_code.test.tiledmap_game.constant')
+local camera = require('_my_code.test.tiledmap_game.camera.camera')
 local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
 
 local base = require('_my_code.test.tiledmap_game.unit.soldier.action_component.acrtion_base')
@@ -50,6 +51,7 @@ function cAction:openStatus(lPara)
 
         if bCango then
             self._soldier:setPosi(nAimX, nAimY)
+            camera.setPosi({nAimX, nAimY})
             if now - beginStepTime < constant.CHILD_WALK_STEPTIME then
                 self:_stepRepeat(moveFun)
             else

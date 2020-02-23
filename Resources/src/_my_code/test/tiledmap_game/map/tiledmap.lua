@@ -6,21 +6,20 @@ CreateLocalModule('_my_code.test.tiledmap_game.map.tiledmap')
 
 local tagTileMap = 1
 
--- 在镜头搞完前，保留这个吧
 local function createTileDemoLayer()
     local layer = cc.Layer:create()
 
-    local function onTouchesMoved(touches, event)
-        local diff = touches[1]:getDelta()
-        local node = layer:getChildByTag(tagTileMap)
-        local currentPosX, currentPosY= node:getPosition()
-        node:setPosition(cc.p(currentPosX + diff.x, currentPosY + diff.y))
-    end
+    -- local function onTouchesMoved(touches, event)
+    --     local diff = touches[1]:getDelta()
+    --     local node = layer:getChildByTag(tagTileMap)
+    --     local currentPosX, currentPosY= node:getPosition()
+    --     node:setPosition(cc.p(currentPosX + diff.x, currentPosY + diff.y))
+    -- end
 
-    local listener = cc.EventListenerTouchAllAtOnce:create()
-    listener:registerScriptHandler(onTouchesMoved,cc.Handler.EVENT_TOUCHES_MOVED )
-    local eventDispatcher = layer:getEventDispatcher()
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+    -- local listener = cc.EventListenerTouchAllAtOnce:create()
+    -- listener:registerScriptHandler(onTouchesMoved,cc.Handler.EVENT_TOUCHES_MOVED )
+    -- local eventDispatcher = layer:getEventDispatcher()
+    -- eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
 
     return layer
 end

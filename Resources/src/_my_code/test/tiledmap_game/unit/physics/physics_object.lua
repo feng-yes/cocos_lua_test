@@ -1,6 +1,8 @@
 
 local rigibody = require('_my_code.test.tiledmap_game.unit.physics.rigidbody')
 local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
+local slot = require('_my_code.test.tiledmap_game.signal.signal')
+local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant')
 
 CreateLocalModule('_my_code.test.tiledmap_game.unit.physics.physics_object')
 
@@ -21,6 +23,9 @@ function cPhysicsBody:__init__()
 
     -- 位置
     self._lMapPoint = {0, 0}
+
+    -- 摄像机跟随
+    self.bCameraFocus = false
 end
 
 function cPhysicsBody:setRigiBody(oRigiBody)
@@ -56,6 +61,9 @@ function cPhysicsBody:setPosi(x, y)
     self._lMapPoint = mapInterface.getMapPoint({x, y})
     if bPhysics then
         self.oRigiBody.lCenter = {x, y}
+    end
+    if self.bCameraFocus then
+        slot.emit(slotConstant.CAMERA_FOCUS, {x, y})
     end
 end
 

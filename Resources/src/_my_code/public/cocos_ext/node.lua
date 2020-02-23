@@ -157,3 +157,31 @@ function cc.Node:SetOpenTouchSwallow(bOpen)
         self._sysTouchListener:setSwallowTouches(bOpen)
     end
 end
+
+-- 定时函数
+function cc.Node:DelayCallOnce(nTime, callFunc)
+    self:runAction(cc.Sequence:create(
+        cc.DelayTime:create(nTime),
+        cc.CallFunc:create(callFunc)
+    ))
+end
+
+function cc.Node:DelayCall(nTime, callFunc)
+    local stop = false
+    local function stopFunc()
+        stop = true
+    end
+
+    local function cb()
+        if stop then
+            return
+        end
+        local nextTime = callFunc()
+        if nextTime then
+            self:DelayCallOnce(nextTime, cb)
+        end
+    end
+
+    self:DelayCallOnce(nTime, cb)
+    return stopFunc
+end

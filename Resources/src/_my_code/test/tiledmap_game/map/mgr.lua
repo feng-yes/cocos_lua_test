@@ -1,6 +1,7 @@
 
 -- 地图模块管理
 
+local constant = require('_my_code.test.tiledmap_game.constant')
 local tiledmap = require('_my_code.test.tiledmap_game.map.tiledmap')
 local bg = require('_my_code.test.tiledmap_game.map.bg')
 
@@ -11,7 +12,7 @@ local tagItemLayer = 1
 local map = nil
 
 local function initMap()
-    map:setScale(0.6)
+    map:setScale(1)
     -- 挂在地图的物体都放这个layer
     local layerItem = cc.Layer:create()
     map:addChild(layerItem, 0, tagItemLayer)
@@ -32,5 +33,12 @@ function initMapLayer()
     mainLayer:addChild(bgSp)
     bgSp:SetPosition('50%', '50%')
     mainLayer:addChild(ret)
+
+    -- 摄像机
+    local cameraModule = require('_my_code.test.tiledmap_game.camera.camera')
+    local camera = cameraModule.init()
+    mainLayer:addChild(camera)
+
+    ret:setCameraMask(constant.MAP_CAMERA_FLAG)
     return mainLayer
 end
