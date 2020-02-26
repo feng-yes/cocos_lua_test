@@ -61,14 +61,14 @@ function cWar:changeCameraStatus(nId)
     if self._warUiToUnits[nId] == self._cameraObj then
         self:_removeCameraObj()
         slot.emit(slotConstant.CAMERA_TOUCH_OPEN, true)
-        slot.emit(slotConstant.WAR_UI_UNIT, nId, constant.CHILD_KEY_TAG, false)
+        slot.emit(slotConstant.WAR_UI_UNIT, nId, constant.CHILD_FOCUS_TAG, false)
         return
     end
 
     for id, unit in pairs(self._warUiToUnits) do
         if unit == self._cameraObj then
             self:_removeCameraObj()
-            slot.emit(slotConstant.WAR_UI_UNIT, id, constant.CHILD_KEY_TAG, false)
+            slot.emit(slotConstant.WAR_UI_UNIT, id, constant.CHILD_FOCUS_TAG, false)
             break
         end
     end
@@ -79,7 +79,7 @@ function cWar:_setCameraObj(unit)
     unit.bCameraFocus = true
     self._cameraObj = unit
 
-    slot.emit(slotConstant.WAR_UI_UNIT, unit.nWarUiId, constant.CHILD_KEY_TAG, true)
+    slot.emit(slotConstant.WAR_UI_UNIT, unit.nWarUiId, constant.CHILD_FOCUS_TAG, true)
     slot.emit(slotConstant.CAMERA_TOUCH_OPEN, false)
     slot.emit(slotConstant.CAMERA_FOCUS_MOVE, {unit:getPosi()})
 end

@@ -15,8 +15,8 @@ local mainLayer = nil
 local function changeUnitStatus(nodeTag, orderTag, value)
     local layer = mainLayer:getChildByTag(nodeTag)
     local item = layer:getChildByTag(orderTag)
-    if orderTag == constant.CHILD_KEY_TAG then
-        item:setVisible(value)
+    if orderTag == constant.CHILD_FOCUS_TAG then
+        item.SetCheck(value and 1 or 2)
     else
         item:setString(value)
     end
@@ -30,12 +30,13 @@ function createChildInfo(tag)
     local layer = cc.Layer:create()
     layer:SetPosition(VisibleRect:rightTop().x-100, VisibleRect:rightTop().y-25 * tag + 10)
 
-    local key = mapItem.createMapItem(mapItem.key)
-    key:setScale(0.35)
-    key:SetPosition(-18, 0)
-    key:setVisible(false)
-    key:setTag(constant.CHILD_KEY_TAG)
-    layer:addChild(key)
+    local cameraAim = button.createCheckButton('mysource/tilmap_game/pic/eye1.png', 'mysource/tilmap_game/pic/eye0.png')
+    cameraAim:SetPosition(-27, -8)
+    cameraAim:setTag(constant.CHILD_FOCUS_TAG)
+    cameraAim.OpenChange = function(nStatus) 
+        slot.emit(slotConstant.WAR_UI_FOCUS, layer:getTag())
+    end
+    layer:addChild(cameraAim)
 
     local child = mapItem.createMapItem(mapItem.boy1)
     local childBtn = button.createWithSprite(child)
@@ -43,7 +44,6 @@ function createChildInfo(tag)
     local width, height = childBtn:GetContentSize()
     childBtn:SetPosition(-10, -12)
     childBtn.openClick = function() 
-        slot.emit(slotConstant.WAR_UI_FOCUS, layer:getTag())
     end
     layer:addChild(childBtn)
 

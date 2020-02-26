@@ -87,6 +87,6 @@ CHILD_SP_ACTION_TAG_MOVE = 1  -- 移动跳跃
 -- 战场UI
 CHILD_HP_TEXT_TAG = 1
 CHILD_ATTACK_TEXT_TAG = 2
-CHILD_KEY_TAG = 3
+CHILD_FOCUS_TAG = 3
 
 --============================ 人物相关

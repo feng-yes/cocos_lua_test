@@ -55,3 +55,45 @@ function createWithSprite(sprite1, sprite2)
 
     return node
 end
+
+function createCheckButton(sPath1, sPath2)
+    local node = cc.Node:create()
+    local sprite1 = cc.Sprite:create(sPath1)
+    local sprite2 = cc.Sprite:create(sPath2)
+    node:addChild(sprite1, 0, sprire1Tag)
+    node:SetContentSize(sprite1:GetContentSize())
+    sprite1:SetPosition('50%', '50%')
+    
+    node:addChild(sprite2, 0, sprire2Tag)
+    sprite2:setVisible(false)
+    sprite2:SetPosition('50%', '50%')
+
+    node.nCheckStatus = 1
+
+    node.SetCheck = function(nId) 
+        if node.nCheckStatus == nId then
+            return
+        end
+
+        sprite1:setVisible(false)
+        sprite2:setVisible(false)
+        node:getChildByTag(nId):setVisible(true)
+        node.nCheckStatus = nId
+    end
+
+    node.GetCheck = function()
+        return node.nCheckStatus
+    end
+
+    node.OpenChange = function(nStatus)
+    end
+
+    node.openClick = function()
+        node.SetCheck(node.nCheckStatus == 1 and 2 or 1)
+        node.OpenChange(node.nCheckStatus)
+    end
+
+    node:OpenTouch()
+
+    return node
+end
