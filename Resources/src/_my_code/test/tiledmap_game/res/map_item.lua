@@ -7,8 +7,8 @@ CreateLocalModule('_my_code.test.tiledmap_game.res.map_item')
 stone = 'map_item011.png'
 girl1 = 'map_item001.png'
 boy1 = 'map_item003.png'
-boy2 = 'map_item002.png'
-boy3 = 'map_item004.png'
+boy2 = 'map_item004.png'
+boy3 = 'map_item002.png'
 
 key = 'map_item006.png'
 heart = 'map_item010.png'

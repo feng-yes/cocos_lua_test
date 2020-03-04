@@ -26,23 +26,29 @@ local function registerSlot()
     slot.register(slotConstant.WAR_UI_UNIT, changeUnitStatus)
 end
 
-function createChildInfo(tag)
+function createChildInfo(tag, sSpPic)
     local layer = cc.Layer:create()
     layer:SetPosition(VisibleRect:rightTop().x-100, VisibleRect:rightTop().y-25 * tag + 10)
 
     local cameraAim = button.createCheckButton('mysource/tilmap_game/pic/eye1.png', 'mysource/tilmap_game/pic/eye0.png')
     cameraAim:SetPosition(-27, -8)
     cameraAim:setTag(constant.CHILD_FOCUS_TAG)
+    cameraAim.SetCheck(2)
     cameraAim.OpenChange = function(nStatus) 
         slot.emit(slotConstant.WAR_UI_FOCUS, layer:getTag())
     end
     layer:addChild(cameraAim)
 
-    local child = mapItem.createMapItem(mapItem.boy1)
+    local child = mapItem.createMapItem(sSpPic)
     local childBtn = button.createWithSprite(child)
     childBtn:setScale(0.55)
     local width, height = childBtn:GetContentSize()
-    childBtn:SetPosition(-10, -12)
+    -- 精灵范围
+    if sSpPic == mapItem.boy1 then
+        childBtn:SetPosition(-10, -12)
+    elseif sSpPic == mapItem.boy2 then
+        childBtn:SetPosition(-8, -12)
+    end
     childBtn.openClick = function() 
     end
     layer:addChild(childBtn)

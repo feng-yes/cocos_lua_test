@@ -1,6 +1,7 @@
 
 -- 游戏进程管理器
 
+local constant = require('_my_code.test.tiledmap_game.constant')
 local mapMgr = require('_my_code.test.tiledmap_game.map.mgr')
 local controllerMgr = require('_my_code.test.tiledmap_game.controller.game_mgr.game_panel')
 
@@ -18,8 +19,11 @@ function gameInit()
     scene:addChild(controllerMgr.initLayer())
 
     -- 初始化战场数据
+    local startAreaList = table.copy(constant.MAP_START_AREA)
     local war = require('_my_code.test.tiledmap_game.game.war')
-    war:addWarSide1Player()
+    local me = war:addWarSide1Player(startAreaList)
+    war:addWarSide2Player(startAreaList)
+    war:setControlPlayer(me)
 
 	scene:addChild(CreateBackButton())
 

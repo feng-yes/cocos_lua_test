@@ -2,6 +2,7 @@
 local constant = require('_my_code.test.tiledmap_game.constant')
 local childMgr = require('_my_code.test.tiledmap_game.unit.soldier.child_mgr')
 local mapMgr = require('_my_code.test.tiledmap_game.map.mgr')
+local mapItem = require('_my_code.test.tiledmap_game.res.map_item')
 local controlPlayerMgr = require('_my_code.test.tiledmap_game.controller.player.mgr')
 local warUnitUi = require('_my_code.test.tiledmap_game.controller.game_mgr.war_panel')
 local slot = require('_my_code.test.tiledmap_game.signal.signal')
@@ -31,19 +32,33 @@ function cWar:_initSlot()
 end
 
 -- 创建一个角色，作为阵营1
-function cWar:addWarSide1Player()
+function cWar:addWarSide1Player(lArea)
     local child1 = childMgr.createPlayer1()
     mapMgr.addChild(child1:getLayer())
-    child1:setPosiByPoint(table.random_get(constant.MAP_START_AREA))
+    child1:setPosiByPoint(table.random_pop(constant.MAP_START_AREA))
 
     if not self.warSides[1] then
         self.warSides[1] = {}
     end
     table.insert(self.warSides[1], child1)
     child1.nWarSide = 1
-    self:setUnitId(child1)
+    self:setUnitId(child1, mapItem.boy1)
+    return child1
+end
 
-    self:setControlPlayer(child1)
+-- 阵营2角色
+function cWar:addWarSide2Player(lArea)
+    local child2 = childMgr.createPlayer2()
+    mapMgr.addChild(child2:getLayer())
+    child2:setPosiByPoint(table.random_pop(constant.MAP_START_AREA))
+
+    if not self.warSides[2] then
+        self.warSides[2] = {}
+    end
+    table.insert(self.warSides[2], child2)
+    child2.nWarSide = 2
+    self:setUnitId(child2, mapItem.boy2)
+    return child2
 end
 
 function cWar:setControlPlayer(unit)
@@ -89,11 +104,11 @@ function cWar:_removeCameraObj()
     self._cameraObj = nil
 end
 
-function cWar:setUnitId(unit)
+function cWar:setUnitId(unit, sSpPic)
     local nId = #self._warUiToUnits + 1
     unit.nWarUiId = nId
     self._warUiToUnits[nId] = unit
-    warUnitUi.createChildInfo(nId)
+    warUnitUi.createChildInfo(nId, sSpPic)
 end
 
 local oWar = cWar:New()
