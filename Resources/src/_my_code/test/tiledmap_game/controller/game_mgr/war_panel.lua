@@ -83,7 +83,7 @@ end
 
 function reSetNodePosi(nodeTag, newTag)
     local layer = mainLayer:getChildByTag(nodeTag)
-    layer:SetPosition(VisibleRect:rightTop().x-100, VisibleRect:rightTop().y-25 * tag + 10)
+    layer:SetPosition(VisibleRect:rightTop().x-100, VisibleRect:rightTop().y-25 * newTag + 10)
     layer:setTag(newTag)
 end
 
