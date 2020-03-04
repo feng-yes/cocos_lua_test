@@ -90,3 +90,17 @@ CHILD_ATTACK_TEXT_TAG = 2
 CHILD_FOCUS_TAG = 3
 
 --============================ 人物相关
+
+
+--============================ 瓢虫
+
+-- 技能
+BEETLE_SKILL_BOOM = 1
+
+-- 动作状态机名称
+BEETLE_ACTION_STAND = 'stand'
+BEETLE_ACTION_WALK = 'walk'
+BEETLE_ACTION_BOOM = 'boom'
+
+
+--============================ 瓢虫
