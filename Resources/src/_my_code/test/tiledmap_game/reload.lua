@@ -19,6 +19,13 @@ local function doReload()
     package.loaded['_my_code.test.tiledmap_game.signal.signal'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.physics.physics_object'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.physics.rigidbody'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.acrtion_base'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.action_mgr'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.stand'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.walk'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.boom'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.beetle.beetle_mgr'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.beetle.beetle'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.acrtion_base'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.action_mgr'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.stand'] = nil

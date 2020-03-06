@@ -6,6 +6,8 @@ local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant
 
 CreateLocalModule('_my_code.test.tiledmap_game.camera.camera')
 
+local cameraSlowMoveActionTag = 1
+
 local spCameraTag = 1
 local nScale = 1.2
 local nXFix = 0
@@ -22,7 +24,9 @@ end
 
 local function moveSlow(lPosi)
     local x, y = unpack(lPosi)
-    camera:runAction(cc.MoveTo:create(0.5, cc.p(x + nXFix * nScale, y + nYFix * nScale)))
+    camera:stopActionByTag(cameraSlowMoveActionTag)
+    local moveAction = camera:runAction(cc.MoveTo:create(0.5, cc.p(x + nXFix * nScale, y + nYFix * nScale)))
+    moveAction:setTag(cameraSlowMoveActionTag)
 end
 
 local function doReleaseKeyMap(sKey)

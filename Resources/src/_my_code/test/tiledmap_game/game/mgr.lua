@@ -22,8 +22,11 @@ function gameInit()
     local startAreaList = table.copy(constant.MAP_START_AREA)
     local war = require('_my_code.test.tiledmap_game.game.war')
     local me = war:addWarSide1Player(startAreaList)
-    war:addWarSide2Player(startAreaList)
     war:setControlPlayer(me)
+    war:addWarSide2Player(startAreaList)
+    print(me:getPosi())
+    
+    war:setControlPlayer(war:CallBeetle())
 
 	scene:addChild(CreateBackButton())
 

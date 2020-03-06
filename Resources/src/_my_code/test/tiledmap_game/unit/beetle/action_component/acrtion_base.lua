@@ -20,7 +20,7 @@ end
 function cActionBase:StopMove()
 end
 
-function cActionBase:actAttack(nNo)
+function cActionBase:Boom()
 end
 
 return cActionBase

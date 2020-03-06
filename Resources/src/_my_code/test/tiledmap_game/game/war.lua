@@ -1,5 +1,6 @@
 
 local constant = require('_my_code.test.tiledmap_game.constant')
+local beetleMgr = require('_my_code.test.tiledmap_game.unit.beetle.beetle_mgr')
 local childMgr = require('_my_code.test.tiledmap_game.unit.soldier.child_mgr')
 local mapMgr = require('_my_code.test.tiledmap_game.map.mgr')
 local mapItem = require('_my_code.test.tiledmap_game.res.map_item')
@@ -35,7 +36,7 @@ end
 function cWar:addWarSide1Player(lArea)
     local child1 = childMgr.createPlayer1()
     mapMgr.addChild(child1:getLayer())
-    child1:setPosiByPoint(table.random_pop(constant.MAP_START_AREA))
+    child1:setPosiByPoint(table.random_pop(lArea))
 
     if not self.warSides[1] then
         self.warSides[1] = {}
@@ -50,7 +51,7 @@ end
 function cWar:addWarSide2Player(lArea)
     local child2 = childMgr.createPlayer2()
     mapMgr.addChild(child2:getLayer())
-    child2:setPosiByPoint(table.random_pop(constant.MAP_START_AREA))
+    child2:setPosiByPoint(table.random_pop(lArea))
 
     if not self.warSides[2] then
         self.warSides[2] = {}
@@ -59,6 +60,14 @@ function cWar:addWarSide2Player(lArea)
     child2.nWarSide = 2
     self:setUnitId(child2, mapItem.boy2)
     return child2
+end
+
+-- 召唤虫子
+function cWar:CallBeetle(oCallUnit, aimPosi)
+    local oBee = beetleMgr.createBeetle()
+    mapMgr.addChild(oBee:getLayer())
+    oBee:setPosiByPoint(table.random_get(constant.MAP_START_AREA))
+    return oBee
 end
 
 function cWar:setControlPlayer(unit)
@@ -94,7 +103,9 @@ function cWar:_setCameraObj(unit)
     unit.bCameraFocus = true
     self._cameraObj = unit
 
-    slot.emit(slotConstant.WAR_UI_UNIT, unit.nWarUiId, constant.CHILD_FOCUS_TAG, true)
+    if unit.nWarUiId then
+        slot.emit(slotConstant.WAR_UI_UNIT, unit.nWarUiId, constant.CHILD_FOCUS_TAG, true)
+    end
     slot.emit(slotConstant.CAMERA_TOUCH_OPEN, false)
     slot.emit(slotConstant.CAMERA_FOCUS_MOVE, {unit:getPosi()})
 end
@@ -109,6 +120,9 @@ function cWar:setUnitId(unit, sSpPic)
     unit.nWarUiId = nId
     self._warUiToUnits[nId] = unit
     warUnitUi.createChildInfo(nId, sSpPic)
+end
+
+function cWar:CreateBeetle()
 end
 
 local oWar = cWar:New()

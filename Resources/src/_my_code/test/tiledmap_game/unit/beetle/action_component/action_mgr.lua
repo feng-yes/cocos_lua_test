@@ -24,6 +24,10 @@ function cActionMgr:changeStatus(oOldStatus, sNewStatus, lPara)
     self._statusMap[sNewStatus]:openStatus(lPara)
 end
 
+function cActionMgr:GetStatus()
+    return self._nowStatusName
+end
+
 -- 输入
 function cActionMgr:Move(nDirection, nSpeed)
     self._statusMap[self._nowStatusName]:Move(nDirection, nSpeed)
@@ -31,6 +35,12 @@ end
 
 function cActionMgr:StopMove()
     self._statusMap[self._nowStatusName]:StopMove()
+end
+
+function cActionMgr:Attack(nNo)
+    if nNo == constant.BEETLE_SKILL_BOOM then
+        self._statusMap[self._nowStatusName]:Boom()
+    end
 end
 
 return cActionMgr

@@ -79,9 +79,9 @@ end
 
 function setUnitAndOpenControl(oUnit)
     assert(oUnit:IsInstance(physics_object.cPhysicsBody))
-    if unit then
-        unSetUnit()
-    end
+    -- if unit then
+    --     unSetUnit()
+    -- end
     unit = oUnit
     
     -- 注册键盘事件

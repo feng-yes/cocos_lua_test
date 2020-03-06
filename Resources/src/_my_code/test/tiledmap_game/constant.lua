@@ -94,6 +94,9 @@ CHILD_FOCUS_TAG = 3
 
 --============================ 瓢虫
 
+-- sp默认属性
+BEETLE_SP_SCALE = 0.5
+
 -- 技能
 BEETLE_SKILL_BOOM = 1
 

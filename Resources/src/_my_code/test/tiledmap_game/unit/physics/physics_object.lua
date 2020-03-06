@@ -59,7 +59,7 @@ function cPhysicsBody:setPosi(x, y)
     self.layer:SetPosition(x, y)
     mapInterface.resetorder(self.layer)
     self._lMapPoint = mapInterface.getMapPoint({x, y})
-    if bPhysics then
+    if self.bPhysics then
         self.oRigiBody.lCenter = {x, y}
     end
     if self.bCameraFocus then

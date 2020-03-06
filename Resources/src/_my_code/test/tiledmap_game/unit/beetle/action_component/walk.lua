@@ -14,7 +14,7 @@ function cAction:__init__(mgr, unit)
 end
 
 function cAction:_stepRepeat(moveFun)
-    local walkAction = self._soldier:getLayer():runAction(cc.Sequence:create(
+    local walkAction = self._unit:getLayer():runAction(cc.Sequence:create(
         cc.DelayTime:create(0.001),
         cc.CallFunc:create(moveFun)
     ))
@@ -31,7 +31,7 @@ function cAction:openStatus(lPara)
     local lastMoveTime = beginStepTime
     local function moveFun()
         local now = os.clock()
-        local xPre, yPre = self._soldier:getPosi()
+        local xPre, yPre = self._unit:getPosi()
         local nLong = constant.CHILD_WALK_STEPWIDTH * nSpeed / constant.CHILD_WALK_STEPTIME * (now - lastMoveTime)
         lastMoveTime = now
 
@@ -39,10 +39,10 @@ function cAction:openStatus(lPara)
         local nYLong = nLong * math.sin(nDirection)
         local nAimX, nAimY = xPre + nXLong, yPre + nYLong
 
-        local bCango = mapInterface.canGotoPosi(self._soldier, {nAimX, nAimY})
+        local bCango = mapInterface.canGotoPosi(self._unit, {nAimX, nAimY})
         if not bCango then
             -- 修正
-            local lAimPoint = mapInterface.getPosiFix(self._soldier, {xPre, yPre}, {nAimX, nAimY})
+            local lAimPoint = mapInterface.getPosiFix(self._unit, {xPre, yPre}, {nAimX, nAimY})
             if lAimPoint then
                 nAimX, nAimY = unpack(lAimPoint)
                 bCango = true
@@ -50,7 +50,7 @@ function cAction:openStatus(lPara)
         end
 
         if bCango then
-            self._soldier:setPosi(nAimX, nAimY)
+            self._unit:setPosi(nAimX, nAimY)
             if now - beginStepTime < constant.CHILD_WALK_STEPTIME then
                 self:_stepRepeat(moveFun)
             else
@@ -58,7 +58,7 @@ function cAction:openStatus(lPara)
             end
         else
             -- 修正无效，不再逐帧计算
-            local walkAction = self._soldier:getLayer():runAction(cc.Sequence:create(
+            local walkAction = self._unit:getLayer():runAction(cc.Sequence:create(
                 cc.DelayTime:create(beginStepTime + constant.CHILD_WALK_STEPTIME - now),
                 cc.CallFunc:create(functor(self._finishStep, self))
             ))
@@ -68,16 +68,16 @@ function cAction:openStatus(lPara)
     self:_stepRepeat(moveFun)
 
     -- jump
-    local jumpAction = self._soldier:getSp():runAction(
+    local jumpAction = self._unit:getSp():runAction(
         cc.JumpBy:create(constant.CHILD_WALK_STEPTIME, cc.p(0,0), constant.CHILD_WALK_STEPHIGH, 1)
     )
     jumpAction:setTag(constant.CHILD_SP_ACTION_TAG_MOVE)
 end
 
 function cAction:_reset()
-    self._soldier:getLayer():stopActionByTag(constant.CHILD_LAYER_ACTION_TAG_MOVE)
-    self._soldier:getSp():stopActionByTag(constant.CHILD_SP_ACTION_TAG_MOVE)
-    self._soldier:getSp():SetPosition(0, constant.CHILD_SP_DEFAULTY)
+    self._unit:getLayer():stopActionByTag(constant.CHILD_LAYER_ACTION_TAG_MOVE)
+    self._unit:getSp():stopActionByTag(constant.CHILD_SP_ACTION_TAG_MOVE)
+    -- self._unit:getSp():SetPosition(0, constant.CHILD_SP_DEFAULTY)
 end
 
 function cAction:_finishStep()
