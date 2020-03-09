@@ -8,6 +8,7 @@ local cChild, Super = CreateClass(physics_object.cPhysicsBody)
 
 function cChild:__init__()
     Super.__init__(self)
+    self.unitType = constant.WAR_UNIT_TYPE_CHILD
     self.layer = cc.Layer:create()
     self._sp = nil
     self._actionMgr = cActionMgr:New(self)

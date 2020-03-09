@@ -7,8 +7,4 @@ function cAction:__init__(mgr, unit)
     Super.__init__(self, mgr, unit)
 end
 
-function cAction:Move(nDirection, nSpeed)
-    self._mgr:changeStatus(self, constant.CHILD_ACTION_WALK, {nDirection, nSpeed})
-end
-
 return cAction

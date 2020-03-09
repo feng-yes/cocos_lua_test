@@ -66,6 +66,10 @@ MAP_CAMERA_FLAG = cc.CameraFlag.USER1
 RIGI_ROUND = 1
 RIGI_SQUARE = 2
 
+-- 战场单位
+WAR_UNIT_TYPE_CHILD = 1
+WAR_UNIT_TYPE_BEETLE = 2
+
 --============================ 人物相关
 -- 精灵相对layer向上偏移量
 CHILD_SP_DEFAULTY = 16

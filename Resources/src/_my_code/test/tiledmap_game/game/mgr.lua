@@ -24,7 +24,6 @@ function gameInit()
     local me = war:addWarSide1Player(startAreaList)
     war:setControlPlayer(me)
     war:addWarSide2Player(startAreaList)
-    print(me:getPosi())
     
     war:setControlPlayer(war:CallBeetle())
 

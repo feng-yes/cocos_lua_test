@@ -122,9 +122,6 @@ function cWar:setUnitId(unit, sSpPic)
     warUnitUi.createChildInfo(nId, sSpPic)
 end
 
-function cWar:CreateBeetle()
-end
-
 local oWar = cWar:New()
 
 return oWar

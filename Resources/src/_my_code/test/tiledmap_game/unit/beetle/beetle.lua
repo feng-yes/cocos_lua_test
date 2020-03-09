@@ -8,6 +8,7 @@ local cBeetle, Super = CreateClass(physics_object.cPhysicsBody)
 
 function cBeetle:__init__()
     Super.__init__(self)
+    self.unitType = constant.WAR_UNIT_TYPE_BEETLE
     self.layer = cc.Layer:create()
     self._sp = nil
     self._actionMgr = cActionMgr:New(self)

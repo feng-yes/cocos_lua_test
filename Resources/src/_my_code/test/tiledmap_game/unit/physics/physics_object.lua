@@ -40,6 +40,13 @@ function cPhysicsBody:lostPhysics()
     table.remove_v(lPhysicsObject, self)
 end
 
+function cPhysicsBody:Destory()
+    if self.layer then
+        self.layer:removeFromParent()
+    end
+    table.remove_v(lPhysicsObject, self)
+end
+
 -- ===============================节点
 function cPhysicsBody:getSp()
     return self._sp
