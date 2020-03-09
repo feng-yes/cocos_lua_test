@@ -18,7 +18,7 @@ function cAction:_stepRepeat(moveFun)
         cc.DelayTime:create(0.001),
         cc.CallFunc:create(moveFun)
     ))
-    walkAction:setTag(constant.CHILD_LAYER_ACTION_TAG_MOVE)
+    walkAction:setTag(constant.BEETLE_LAYER_ACTION_TAG_MOVE)
 end
 
 function cAction:openStatus(lPara)
@@ -27,16 +27,20 @@ function cAction:openStatus(lPara)
     self._nextMovePara = {nDirection, nSpeed}
 
     -- move
-    local beginStepTime = os.clock()
-    local lastMoveTime = beginStepTime
+    local lastMoveTime = os.clock()
     local function moveFun()
+        if not self._nextActionMove then
+            self:_finishMove()
+            return
+        end
         local now = os.clock()
         local xPre, yPre = self._unit:getPosi()
-        local nLong = constant.CHILD_WALK_STEPWIDTH * nSpeed / constant.CHILD_WALK_STEPTIME * (now - lastMoveTime)
+        local nLong = constant.BEETLE_WALK_SPEED * self._nextMovePara[2] * (now - lastMoveTime)
         lastMoveTime = now
 
-        local nXLong = nLong * math.cos(nDirection)
-        local nYLong = nLong * math.sin(nDirection)
+        local nXLong = nLong * math.cos(self._nextMovePara[1])
+        local nYLong = nLong * math.sin(self._nextMovePara[1])
+        print(self._nextMovePara[1])
         local nAimX, nAimY = xPre + nXLong, yPre + nYLong
 
         local bCango = mapInterface.canGotoPosi(self._unit, {nAimX, nAimY})
@@ -51,42 +55,23 @@ function cAction:openStatus(lPara)
 
         if bCango then
             self._unit:setPosi(nAimX, nAimY)
-            if now - beginStepTime < constant.CHILD_WALK_STEPTIME then
-                self:_stepRepeat(moveFun)
-            else
-                self:_finishStep()
-            end
+            self._unit:setFaceToAngle(self._nextMovePara[1])
+            self:_stepRepeat(moveFun)
         else
-            -- 修正无效，不再逐帧计算
-            local walkAction = self._unit:getLayer():runAction(cc.Sequence:create(
-                cc.DelayTime:create(beginStepTime + constant.CHILD_WALK_STEPTIME - now),
-                cc.CallFunc:create(functor(self._finishStep, self))
-            ))
-            walkAction:setTag(constant.CHILD_LAYER_ACTION_TAG_MOVE)
+            -- 修正无效
+            self:_finishMove()
         end
     end
     self:_stepRepeat(moveFun)
-
-    -- jump
-    local jumpAction = self._unit:getSp():runAction(
-        cc.JumpBy:create(constant.CHILD_WALK_STEPTIME, cc.p(0,0), constant.CHILD_WALK_STEPHIGH, 1)
-    )
-    jumpAction:setTag(constant.CHILD_SP_ACTION_TAG_MOVE)
 end
 
 function cAction:_reset()
-    self._unit:getLayer():stopActionByTag(constant.CHILD_LAYER_ACTION_TAG_MOVE)
-    self._unit:getSp():stopActionByTag(constant.CHILD_SP_ACTION_TAG_MOVE)
-    -- self._unit:getSp():SetPosition(0, constant.CHILD_SP_DEFAULTY)
+    self._unit:getLayer():stopActionByTag(constant.BEETLE_LAYER_ACTION_TAG_MOVE)
 end
 
-function cAction:_finishStep()
+function cAction:_finishMove()
     self:_reset()
-    if self._nextActionMove then
-        self:openStatus(self._nextMovePara)
-    else
-        self._mgr:changeStatus(self, constant.CHILD_ACTION_STAND)
-    end
+    self._mgr:changeStatus(self, constant.CHILD_ACTION_STAND)
 end
 
 function cAction:Move(nDirection, nSpeed)

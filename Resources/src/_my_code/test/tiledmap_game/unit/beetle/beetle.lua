@@ -40,6 +40,23 @@ function cBeetle:_getActionStatus()
     return self._actionMgr:GetStatus()
 end
 
+-- 面朝方向
+function cBeetle:setFaceToAngle(nAngle)
+    if nAngle <= math.pi / 2 and nAngle >= -math.pi / 2 then
+        -- 一四象限
+        self._sp:setScaleX(constant.BEETLE_SP_SCALE)
+        self._sp:setRotation(-nAngle / math.pi * 180)
+    else
+        if nAngle > 0 then
+            nAngle = math.pi - nAngle
+        else
+            nAngle = -math.pi - nAngle
+        end
+        self._sp:setScaleX(-constant.BEETLE_SP_SCALE)
+        self._sp:setRotation(nAngle / math.pi * 180)
+    end
+end
+
 function cBeetle:IsBooming()
     return self:_getActionStatus() == constant.BEETLE_ACTION_BOOM
 end

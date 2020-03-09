@@ -105,5 +105,9 @@ BEETLE_ACTION_STAND = 'stand'
 BEETLE_ACTION_WALK = 'walk'
 BEETLE_ACTION_BOOM = 'boom'
 
+-- 行走相关
+BEETLE_WALK_SPEED = 180  -- 速度（像素/s）
 
+-- layer动作tag
+BEETLE_LAYER_ACTION_TAG_MOVE = 1  -- 移动定时器tag
 --============================ 瓢虫
