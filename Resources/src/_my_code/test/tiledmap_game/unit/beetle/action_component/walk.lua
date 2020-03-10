@@ -40,7 +40,6 @@ function cAction:openStatus(lPara)
 
         local nXLong = nLong * math.cos(self._nextMovePara[1])
         local nYLong = nLong * math.sin(self._nextMovePara[1])
-        print(self._nextMovePara[1])
         local nAimX, nAimY = xPre + nXLong, yPre + nYLong
 
         local bCango = mapInterface.canGotoPosi(self._unit, {nAimX, nAimY})
