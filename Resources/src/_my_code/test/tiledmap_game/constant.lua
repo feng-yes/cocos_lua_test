@@ -67,8 +67,9 @@ RIGI_ROUND = 1
 RIGI_SQUARE = 2
 
 -- 战场单位
-WAR_UNIT_TYPE_CHILD = 1
-WAR_UNIT_TYPE_BEETLE = 2
+WAR_UNIT_TYPE_BASE = 1
+WAR_UNIT_TYPE_CHILD = 2
+WAR_UNIT_TYPE_BEETLE = 3
 
 --============================ 人物相关
 -- 精灵相对layer向上偏移量

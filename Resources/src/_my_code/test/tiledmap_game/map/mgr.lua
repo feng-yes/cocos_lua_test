@@ -4,6 +4,7 @@
 local constant = require('_my_code.test.tiledmap_game.constant')
 local tiledmap = require('_my_code.test.tiledmap_game.map.tiledmap')
 local bg = require('_my_code.test.tiledmap_game.map.bg')
+local quadtreeMgr = require('_my_code.test.tiledmap_game.quadtree.mgr')
 
 CreateLocalModule('_my_code.test.tiledmap_game.map.mgr')
 
@@ -16,6 +17,9 @@ local function initMap()
     -- 挂在地图的物体都放这个layer
     local layerItem = cc.Layer:create()
     map:addChild(layerItem, 0, tagItemLayer)
+
+    -- 加载碰撞处理模块
+    quadtreeMgr.initQuadtree(layerItem)
 end
 
 function addChild(obj)

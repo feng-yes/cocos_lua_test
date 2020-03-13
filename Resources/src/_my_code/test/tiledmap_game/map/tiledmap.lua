@@ -52,7 +52,7 @@ end
 
 function initLayer()
     local ret = createTileDemoLayer()
-    map = ccexp.TMXTiledMap:create("mysource/tilmap_game/map/map.tmx")
+    local map = ccexp.TMXTiledMap:create("mysource/tilmap_game/map/map.tmx")
     local layer1 = map:getLayer(constant.MAP_LAYER1)
     constant.MAP_X_NUM, constant.MAP_Y_NUM = layer1:getLayerSize().width, layer1:getLayerSize().height
 

@@ -57,6 +57,13 @@ function table.random_pop(array)
     return table.remove(array, randomNum), randomNum
 end
 
+function table.extend(array1, array2)
+    for _, v in ipairs(array2) do
+        table.insert(array1, v)
+    end
+    return array1
+end
+
 function table.arr_bubble_sort(array, cmp)
     local len = #array
     local i = len  

@@ -12,6 +12,8 @@ local function doReload()
     package.loaded['_my_code.test.tiledmap_game.map.interface'] = nil
     package.loaded['_my_code.test.tiledmap_game.map.tiledmap'] = nil
     package.loaded['_my_code.test.tiledmap_game.map.bg'] = nil
+    package.loaded['_my_code.test.tiledmap_game.quadtree.mgr'] = nil
+    package.loaded['_my_code.test.tiledmap_game.quadtree.quadtree'] = nil
     package.loaded['_my_code.test.tiledmap_game.res.button'] = nil
     package.loaded['_my_code.test.tiledmap_game.res.map_item'] = nil
     package.loaded['_my_code.test.tiledmap_game.res.text'] = nil

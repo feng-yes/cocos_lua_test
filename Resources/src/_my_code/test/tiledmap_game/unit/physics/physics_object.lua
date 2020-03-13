@@ -1,18 +1,19 @@
 
+local constant = require('_my_code.test.tiledmap_game.constant')
 local rigibody = require('_my_code.test.tiledmap_game.unit.physics.rigidbody')
 local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
 local slot = require('_my_code.test.tiledmap_game.signal.signal')
 local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant')
+local quadtreeMgr = require('_my_code.test.tiledmap_game.quadtree.mgr')
 
 CreateLocalModule('_my_code.test.tiledmap_game.unit.physics.physics_object')
 
--- 物理体对象列表，进行碰撞检测
-lPhysicsObject = {}
 
 -- 地图物体都要继承此类
 cPhysicsBody = CreateClass()
 
 function cPhysicsBody:__init__()
+    self.unitType = constant.WAR_UNIT_TYPE_BASE
     -- 是否物理体
     self.bPhysics = false
     self.oRigiBody = nil
@@ -32,19 +33,19 @@ function cPhysicsBody:setRigiBody(oRigiBody)
     assert(oRigiBody:IsInstance(rigibody.cPhyBase))
     self.oRigiBody = oRigiBody
     self.bPhysics = true
-    table.insert(lPhysicsObject, self)
+    quadtreeMgr.insertToUnitList(self)
 end
 
 function cPhysicsBody:lostPhysics()
     self.bPhysics = false
-    table.remove_v(lPhysicsObject, self)
+    quadtreeMgr.removeFromUnitList(self)
 end
 
 function cPhysicsBody:Destory()
     if self.layer then
         self.layer:removeFromParent()
     end
-    table.remove_v(lPhysicsObject, self)
+    quadtreeMgr.removeFromUnitList(self)
 end
 
 -- ===============================节点
@@ -58,7 +59,7 @@ end
 
 -- ===============================碰撞相关
 -- 碰撞时回调
-function cPhysicsBody:onCrash(oCrashObj)
+function cPhysicsBody:OnCrash(oCrashObj)
 end
 
 -- ===============================地图位置相关
