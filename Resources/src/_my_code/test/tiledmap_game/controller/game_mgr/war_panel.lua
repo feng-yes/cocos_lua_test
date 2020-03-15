@@ -48,6 +48,8 @@ function createChildInfo(tag, sSpPic)
         childBtn:SetPosition(-10, -12)
     elseif sSpPic == mapItem.boy2 then
         childBtn:SetPosition(-8, -12)
+    else
+        childBtn:SetPosition(-8, -12)
     end
     childBtn.openClick = function() 
     end

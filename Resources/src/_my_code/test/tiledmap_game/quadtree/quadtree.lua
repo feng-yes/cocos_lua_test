@@ -118,7 +118,7 @@ function cQuadTree:_isUnitNearTree(oUnit, oQuadTree)
     if oRigi.type == constant.RIGI_ROUND then
         oRigi = rigibody.cPhySquare:New(oRigi.lCenter, oRigi.nRadius * 2, oRigi.nRadius * 2)
     end
-    return rigibody.isCrash(oRigi, oQuadTree.GetRigiObj())
+    return rigibody.isCrash(oRigi, oQuadTree:GetRigiObj())
 end
 
 -- 返回与目标单位可能碰撞的单位
@@ -129,7 +129,7 @@ function cQuadTree:FindToCrashObj(lReturnUnit, oUnit)
             self._lQuadTree[nIdx]:FindToCrashObj(lReturnUnit, oUnit)
         else
             for i, oChildTree in ipairs(self._lQuadTree) do
-                if self._isUnitNearTree(oUnit, oChildTree) then
+                if self:_isUnitNearTree(oUnit, oChildTree) then
                     oChildTree:FindToCrashObj(lReturnUnit, oUnit)
                 end
             end
@@ -158,12 +158,41 @@ function cQuadTree:DeleteUnit(oUnit)
 end
 
 -- ======================= debug ========================
-function cQuadTree:DrawAllTree(layer)
+function cQuadTree:PrintUnitInfo()
+    print('--level:', self._iLevel)
+    for i, unit in pairs(self._lUnit) do
+        print(unit.oRigiBody.lCenter, unit.oRigiBody.nWidth, unit.oRigiBody.nHight)
+    end
+    for i, childTree in pairs(self._lQuadTree) do
+        childTree:PrintUnitInfo(layer)
+    end
+end
 
+function cQuadTree:DrawAllTree(layer)
+    -- local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
+    local pColorLayer = cc.LayerColor:create(cc.c4b(math.random(255), math.random(255), math.random(255), 255 * .25), self._oSquare.nWidth, self._oSquare.nHight)
+    pColorLayer:setPosition(cc.p(self._oSquare.lCenter[1] - self._oSquare.nWidth / 2, self._oSquare.lCenter[2] - self._oSquare.nHight / 2))
+    -- mapInterface.resetorder(pColorLayer)
+    layer:addChild(pColorLayer)
+    pColorLayer:setCameraMask(constant.MAP_CAMERA_FLAG)
+    for i, childTree in pairs(self._lQuadTree) do
+        childTree:DrawAllTree(layer)
+    end
 end
 
 function cQuadTree:DrawAllUnit(layer)
-    
+    -- local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
+    for i, unit in pairs(self._lUnit) do
+        local oSquare = unit.oRigiBody
+        local pColorLayer = cc.LayerColor:create(cc.c4b(math.random(255), math.random(255), math.random(255), 255 * .5), oSquare.nWidth, oSquare.nHight)
+        pColorLayer:setPosition(cc.p(oSquare.lCenter[1] - oSquare.nWidth / 2, oSquare.lCenter[2] - oSquare.nHight / 2))
+        layer:addChild(pColorLayer)
+        -- mapInterface.resetorder(pColorLayer)
+        pColorLayer:setCameraMask(constant.MAP_CAMERA_FLAG)
+    end
+    for i, childTree in pairs(self._lQuadTree) do
+        childTree:DrawAllUnit(layer)
+    end
 end
 
 return cQuadTree

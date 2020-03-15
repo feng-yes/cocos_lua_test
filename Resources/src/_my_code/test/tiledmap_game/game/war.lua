@@ -32,19 +32,19 @@ function cWar:_initSlot()
     slot.register(slotConstant.WAR_UI_FOCUS, functor(self.changeCameraStatus, self))
 end
 
--- 创建一个角色，作为阵营1
-function cWar:addWarSide1Player(lArea)
-    local child1 = childMgr.createPlayer1()
-    mapMgr.addChild(child1:getLayer())
-    child1:setPosiByPoint(table.random_pop(lArea))
+-- 创建一个角色及阵营
+function cWar:addPlayerAndSetSide(sSoilderPic, nSide, lArea)
+    local oSoilder = childMgr.createPlayer(sSoilderPic)
+    mapMgr.addChild(oSoilder:getLayer())
+    oSoilder:setPosiByPoint(table.random_pop(lArea))
 
-    if not self.warSides[1] then
-        self.warSides[1] = {}
+    if not self.warSides[nSide] then
+        self.warSides[nSide] = {}
     end
-    table.insert(self.warSides[1], child1)
-    child1.nWarSide = 1
-    self:setUnitId(child1, mapItem.boy1)
-    return child1
+    table.insert(self.warSides[nSide], oSoilder)
+    oSoilder.nWarSide = nSide
+    self:setUnitId(oSoilder, sSoilderPic)
+    return oSoilder
 end
 
 -- 阵营2角色

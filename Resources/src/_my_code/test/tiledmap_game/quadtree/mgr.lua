@@ -10,9 +10,6 @@ CreateLocalModule('_my_code.test.tiledmap_game.quadtree.mgr')
 local lPhysicsObject = {}
 local quadtree = nil
 
--- 保存1份地图item层的引用，用于测试
-local layerMapItem
-
 local function doOneCrash(oUnit, toCrashUnit, dCrashRecord)
     if oUnit == toCrashUnit then
         return
@@ -69,10 +66,28 @@ function initQuadtree(mapItemLayer)
     local mapSquare = rigibody.cPhySquare:New(lCenter, w, h)
     quadtree = cQuadTree:New(1, mapSquare)
 
+    -- 碰撞处理时间间隔
     mapItemLayer:DelayCall(0.1, function() 
         doCrash()
-        return 3
+        return 0.01
     end)
+    
+    -- 测试
+    -- mapItemLayer:DelayCall(0.1, function()
+    --     local lastLaer = mapItemLayer:getChildByTag(50)
+    --     if lastLaer then
+    --         lastLaer:removeFromParent()
+    --     end
+    --     local layerTest = cc.Layer:create()
+    --     mapItemLayer:addChild(layerTest)
+    --     layerTest:setTag(50)
+    --     -- quadtree:DrawAllTree(layerTest)
+    --     quadtree:DrawAllUnit(layerTest)
+
+    --     -- print('===============================')
+    --     -- quadtree:PrintUnitInfo()
+    --     return 1
+    -- end)
 
     layerMapItem = mapItemLayer
 end

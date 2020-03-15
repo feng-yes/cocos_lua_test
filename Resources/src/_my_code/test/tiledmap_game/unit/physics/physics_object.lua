@@ -14,9 +14,12 @@ cPhysicsBody = CreateClass()
 
 function cPhysicsBody:__init__()
     self.unitType = constant.WAR_UNIT_TYPE_BASE
-    -- 是否物理体
+
+    -- 物理相关，bPhysics是否物理体(物理体进行碰撞检测)，bOpenRigi是否开启实体碰撞处理
     self.bPhysics = false
     self.oRigiBody = nil
+    self.bOpenRigi = false
+    self.nMass = 0  -- 质量
 
     -- cocos主节点
     self.layer = nil 
@@ -60,6 +63,7 @@ end
 -- ===============================碰撞相关
 -- 碰撞时回调
 function cPhysicsBody:OnCrash(oCrashObj)
+    -- print(oCrashObj.unitType)
 end
 
 -- ===============================地图位置相关
