@@ -23,6 +23,8 @@ end
 function cChild:_initPhy()
     local rigid = rigidbody.cPhySquare:New({self:getPosi()}, 30, 20)
     self:setRigiBody(rigid)
+    self.nMass = constant.CHILD_PHY_MASS
+    self.bOpenRigi = true
 end
 
 -- setSP是ui初始化最后一步，将setCameraMask放到这里

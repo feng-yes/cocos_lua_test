@@ -19,7 +19,7 @@ function cPhysicsBody:__init__()
     self.bPhysics = false
     self.oRigiBody = nil
     self.bOpenRigi = false
-    self.nMass = 0  -- 质量
+    self.nMass = 100  -- 质量
 
     -- cocos主节点
     self.layer = nil 

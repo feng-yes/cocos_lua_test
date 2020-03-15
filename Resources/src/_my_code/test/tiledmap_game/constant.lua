@@ -74,6 +74,8 @@ WAR_UNIT_TYPE_BEETLE = 3
 --============================ 人物相关
 -- 精灵相对layer向上偏移量
 CHILD_SP_DEFAULTY = 16
+-- 质量
+CHILD_PHY_MASS = 100
 -- 动作状态机名称
 CHILD_ACTION_STAND = 'stand'
 CHILD_ACTION_WALK = 'walk'
