@@ -49,6 +49,7 @@ function cChild:actMove(bMove, nAngle, speed)
 end
 
 function cChild:actAttack(nNo)
+    print(nNo)
 end
 
 return cChild

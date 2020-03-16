@@ -6,6 +6,7 @@ local slot = require('_my_code.test.tiledmap_game.signal.signal')
 local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant')
 local physics_object = require('_my_code.test.tiledmap_game.unit.physics.physics_object')
 local yaogan = require('_my_code.test.tiledmap_game.controller.player.yaogan')
+local rightBtn = require('_my_code.test.tiledmap_game.controller.player.right_btn')
 local keymap = require('_my_code.test.tiledmap_game.controller.keymap')
 
 CreateLocalModule('_my_code.test.tiledmap_game.controller.player.mgr')
@@ -45,18 +46,6 @@ local function KeyToGan()
     end
 end
 
-local function doPressKeyMap(sKey)
-    if table.contents({'A', 'S', 'W', 'D'}, sKey) then
-        KeyToGan()
-    end
-end
-
-local function doReleaseKeyMap(sKey)
-    if table.contents({'A', 'S', 'W', 'D'}, sKey) then
-        KeyToGan()
-    end
-end
-
 local function doTouchGan(bMove, nAngle, speed)
     if not bMove then
         unit:actMove(false)
@@ -71,9 +60,31 @@ local function doTouchGan(bMove, nAngle, speed)
     -- end
 end
 
+local function doAttack(nAttackNo)
+    unit:actAttack(nAttackNo)
+end
+
+local function doPressKeyMap(sKey)
+    if table.contents({'A', 'S', 'W', 'D'}, sKey) then
+        KeyToGan()
+    end
+end
+
+local function doReleaseKeyMap(sKey)
+    if table.contents({'A', 'S', 'W', 'D'}, sKey) then
+        KeyToGan()
+        return
+    end
+
+    if sKey == 'J' then
+        doAttack(1)
+    end
+end
+
 function initLayer()
     controlLayer = cc.Layer:create()
     controlLayer:addChild(yaogan.initYaoganLayer())
+    controlLayer:addChild(rightBtn.initBtnLayer())
     return controlLayer
 end
 
@@ -90,6 +101,9 @@ function setUnitAndOpenControl(oUnit)
 
     -- 注册移动事件（摇杆）
     slot.register(slotConstant.YAOGAN, doTouchGan)
+
+    -- 注册攻击事件
+    slot.register(slotConstant.ATTACK, doAttack)
 end
 
 function unSetUnit()
@@ -98,4 +112,5 @@ function unSetUnit()
     slot.unregister(slotConstant.KEYBOARD_PRESS, doPressKeyMap)
     slot.unregister(slotConstant.KEYBOARD_RELEASE, doReleaseKeyMap)
     slot.unregister(slotConstant.YAOGAN, doTouchGan)
+    slot.unregister(slotConstant.ATTACK, doAttack)
 end

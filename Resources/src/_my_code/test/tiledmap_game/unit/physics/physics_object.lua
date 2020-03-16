@@ -98,6 +98,3 @@ end
 
 function cPhysicsBody:actAttack(nNo)
 end
-
-function cPhysicsBody:actJump(nAngle, power)
-end

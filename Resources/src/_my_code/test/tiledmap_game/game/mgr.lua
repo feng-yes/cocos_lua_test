@@ -30,8 +30,6 @@ function gameInit()
     
     -- war:setControlPlayer(war:CallBeetle())
 
-	scene:addChild(CreateBackButton())
-
     return scene
 end
 

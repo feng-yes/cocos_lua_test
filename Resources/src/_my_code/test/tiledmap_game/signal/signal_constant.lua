@@ -14,6 +14,7 @@ local counter = createCounter()
 CreateLocalModule('_my_code.test.tiledmap_game.signal.signal_constant')
 
 YAOGAN = counter()
+ATTACK = counter()
 KEYBOARD_PRESS = counter()
 KEYBOARD_RELEASE = counter()
 CAMERA_FOCUS = counter()

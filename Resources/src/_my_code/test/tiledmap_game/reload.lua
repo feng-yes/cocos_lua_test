@@ -3,8 +3,10 @@ local function doReload()
     package.loaded['_my_code.test.tiledmap_game.camera.camera'] = nil
     package.loaded['_my_code.test.tiledmap_game.controller.keymap'] = nil
     package.loaded['_my_code.test.tiledmap_game.controller.game_mgr.game_panel'] = nil
+    package.loaded['_my_code.test.tiledmap_game.controller.game_mgr.menu_panel'] = nil
     package.loaded['_my_code.test.tiledmap_game.controller.game_mgr.war_panel'] = nil
     package.loaded['_my_code.test.tiledmap_game.controller.player.yaogan'] = nil
+    package.loaded['_my_code.test.tiledmap_game.controller.player.right_btn'] = nil
     package.loaded['_my_code.test.tiledmap_game.controller.player.mgr'] = nil
     package.loaded['_my_code.test.tiledmap_game.game.mgr'] = nil
     package.loaded['_my_code.test.tiledmap_game.game.war'] = nil

@@ -17,14 +17,14 @@ local ganTouchPos = {}
 local function beginTouch(x, y)
     gan:stopAllActions()
     local spawn = cc.Spawn:create(
-        cc.ScaleTo:create(0.3, 0.25),
+        cc.ScaleTo:create(0.3, 0.44),
         cc.FadeTo:create(0.3, 255)
     )
     gan:runAction(spawn)
 
-    local actbg = cc.RotateBy:create(1, 360)
-    local repbg = cc.RepeatForever:create(actbg)
-    bg:runAction(repbg)
+    -- local actbg = cc.RotateBy:create(1, 360)
+    -- local repbg = cc.RepeatForever:create(actbg)
+    -- bg:runAction(repbg)
 
     ganTouchPos = {x, y}
 end
@@ -42,6 +42,7 @@ local function moveTouch(x, y)
         gan:SetPosition(ganPrePos[1] + maxMoved * math.cos(nAngle), 
         ganPrePos[2] + maxMoved * math.sin(nAngle))
     end
+    gan:setRotation(-nAngle / math.pi * 180)
 
     slot.emit(slotConstant.YAOGAN, true, nAngle, touchl > maxMoved and 1 or touchl / maxMoved)
 end
@@ -50,20 +51,20 @@ local function endTouch(x, y)
     gan:SetPosition(bg:getPosition())
     gan:stopAllActions()
     local spawn = cc.Spawn:create(
-        cc.ScaleTo:create(0.3, 0.2),
+        cc.ScaleTo:create(0.3, 0.38),
         cc.FadeTo:create(0.3, 180)
     )
     gan:runAction(spawn)
 
-    bg:stopAllActions()
+    -- bg:stopAllActions()
 
     slot.emit(slotConstant.YAOGAN, false)
 end
 
 local function createBg()
-    bg = cc.Sprite:create("mysource/tilmap_game/yaogan/bei.png")
-    bg:setScale(0.5)
-    bg:SetPosition(50, 50)
+    bg = cc.Sprite:create("mysource/tilmap_game/yaogan/timg.png")
+    bg:setScale(0.4)
+    bg:SetPosition(60, 60)
     bg:setOpacity(180)
     
     bg:OpenTouch()
@@ -84,8 +85,8 @@ local function createBg()
 end
 
 local function createGan(bg)
-    gan = cc.Sprite:create("mysource/tilmap_game/yaogan/anniu.png")
-    gan:setScale(0.2)
+    gan = cc.Sprite:create("mysource/tilmap_game/yaogan/mid.png")
+    gan:setScale(0.38)
     gan:setOpacity(180)
     gan:SetPosition(bg:getPosition())
     ganPrePos = {gan:getPosition()}
