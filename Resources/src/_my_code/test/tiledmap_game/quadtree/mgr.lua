@@ -35,6 +35,7 @@ local function doRigiUnitInCrash(unit1, unit2)
     local rigi1X, rigi1Y = unpack(rigi1.lCenter)
     local rigi2X, rigi2Y = unpack(rigi2.lCenter)
 
+    -- x，y方向的侵入量
     local crashX = rigi1.nWidth/2 + rigi2.nWidth/2 - math.abs(rigi1.lCenter[1] - rigi2.lCenter[1])
     local crashY = rigi1.nHight/2 + rigi2.nHight/2 - math.abs(rigi1.lCenter[2] - rigi2.lCenter[2])
     -- 单位1相对单位2在哪一边
