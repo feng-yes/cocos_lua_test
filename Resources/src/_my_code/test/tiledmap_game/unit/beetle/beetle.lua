@@ -22,6 +22,8 @@ end
 function cBeetle:_initPhy()
     local rigid = rigidbody.cPhySquare:New({self:getPosi()}, 15, 15)
     self:setRigiBody(rigid)
+    -- self.nMass = 10
+    -- self.bOpenRigi = true
 end
 
 -- setSP是ui初始化最后一步，将setCameraMask放到这里

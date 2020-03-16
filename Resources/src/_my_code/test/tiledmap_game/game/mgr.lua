@@ -25,7 +25,7 @@ function gameInit()
     local me = war:addPlayerAndSetSide(mapItem.boy1, 1, startAreaList)
     war:setControlPlayer(me)
     war:addPlayerAndSetSide(mapItem.boy2, 2, startAreaList)
-    -- war:addPlayerAndSetSide(mapItem.boy3, 2, startAreaList)
+    war:addPlayerAndSetSide(mapItem.boy3, 2, startAreaList)
     -- war:addPlayerAndSetSide(mapItem.girl1, 2, startAreaList)
     
     -- war:setControlPlayer(war:CallBeetle())
