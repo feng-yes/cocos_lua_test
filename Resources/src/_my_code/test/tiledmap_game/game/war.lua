@@ -63,10 +63,11 @@ function cWar:addWarSide2Player(lArea)
 end
 
 -- 召唤虫子
-function cWar:CallBeetle(oCallUnit, aimPosi)
+function cWar:CallBeetle(oCallUnit, aimDirection)
     local oBee = beetleMgr.createBeetle()
     mapMgr.addChild(oBee:getLayer())
-    oBee:setPosiByPoint(table.random_get(constant.MAP_START_AREA))
+    oBee:setPosi(oCallUnit:getPosi())
+    oBee:actJump(aimDirection)
     return oBee
 end
 

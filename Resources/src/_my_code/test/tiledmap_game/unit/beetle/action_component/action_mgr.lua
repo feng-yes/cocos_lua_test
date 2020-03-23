@@ -11,7 +11,7 @@ function cActionMgr:__init__(unit)
 end
 
 function cActionMgr:_initStatus()
-    local actionList = {constant.BEETLE_ACTION_STAND, constant.BEETLE_ACTION_WALK, constant.BEETLE_ACTION_BOOM}
+    local actionList = {constant.BEETLE_ACTION_STAND, constant.BEETLE_ACTION_WALK, constant.BEETLE_ACTION_BOOM, constant.BEETLE_ACTION_JUMP}
     for i, v in ipairs(actionList) do
         local cStatus = require('_my_code.test.tiledmap_game.unit.beetle.action_component.' .. v)
         self._statusMap[v] = cStatus:New(self, self._unit)
@@ -35,6 +35,10 @@ end
 
 function cActionMgr:StopMove()
     self._statusMap[self._nowStatusName]:StopMove()
+end
+
+function cActionMgr:Jump(nDirection)
+    self._statusMap[self._nowStatusName]:Jump(nDirection)
 end
 
 function cActionMgr:Attack(nNo)

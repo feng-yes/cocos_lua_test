@@ -11,4 +11,8 @@ function cAction:Move(nDirection, nSpeed)
     self._mgr:changeStatus(self, constant.CHILD_ACTION_WALK, {nDirection, nSpeed})
 end
 
+function cAction:Jump(nDirection)
+    self._mgr:changeStatus(self, constant.BEETLE_ACTION_JUMP, {nDirection})
+end
+
 return cAction

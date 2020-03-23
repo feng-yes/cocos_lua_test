@@ -20,6 +20,9 @@ end
 function cActionBase:StopMove()
 end
 
+function cActionBase:Jump(nDirection)
+end
+
 function cActionBase:Boom()
 end
 

@@ -111,12 +111,22 @@ BEETLE_SKILL_BOOM = 1
 BEETLE_ACTION_STAND = 'stand'
 BEETLE_ACTION_WALK = 'walk'
 BEETLE_ACTION_BOOM = 'boom'
+BEETLE_ACTION_JUMP = 'jump'
 
 -- 行走相关
 BEETLE_WALK_SPEED = 180  -- 速度（像素/s）
 
+-- 跳跃相关
+BEETLE_JUMP_SPEED = 300  -- 速度（像素/s）
+BEETLE_JUMP_HIGH = 50  -- 跳高（像素）
+BEETLE_JUMP_TIME = 0.5  -- 时间（s）
+
 -- layer动作tag
 BEETLE_LAYER_ACTION_TAG_MOVE = 1  -- 移动定时器tag
+BEETLE_LAYER_ACTION_TAG_JUMP = 2  -- 跳跃水平移动定时器tag
+
+-- sp动作tag
+BEETLE_SP_ACTION_TAG_JUMP = 1  -- 跳跃
 --============================ 瓢虫
 
 

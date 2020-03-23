@@ -9,16 +9,20 @@ function cSkillBase:__init__(soldier)
     self._nLastUsedTime = 0
 end
 
--- 技能效果（需要复写）
-function cSkillBase:Release(lPara)
+function cSkillBase:GetNo()
+    return self._nNo
 end
 
-function cSkillBase:Call(lPara)
+-- 技能效果（需要复写）
+function cSkillBase:Release(nDirection)
+end
+
+function cSkillBase:Call(nDirection)
     if os.clock() - self._nLastUsedTime <= self._cooldownTime then
-        print('技能冷却中，剩余' .. os.clock() - self._nLastUsedTime .. 's')
+        print('技能冷却中，剩余' .. self._cooldownTime - (os.clock() - self._nLastUsedTime) .. 's')
         return
     end
-    Release(lPara)
+    self:Release(nDirection)
     self._nLastUsedTime = os.clock()
 end
 

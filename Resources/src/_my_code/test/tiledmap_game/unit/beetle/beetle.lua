@@ -73,6 +73,10 @@ function cBeetle:actMove(bMove, nAngle, speed)
     end
 end
 
+function cBeetle:actJump(nDirection)
+    self._actionMgr:Jump(nDirection)
+end
+
 function cBeetle:actAttack(nNo)
 end
 

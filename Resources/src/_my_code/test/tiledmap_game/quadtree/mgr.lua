@@ -20,7 +20,7 @@ local function isUnitNoCrash(oUnit, oIgnoreUnit)
 
     local lToCrashUnit = quadtree:FindToCrashObj({}, oUnit)
     for i, toCrashUnit in ipairs(lToCrashUnit) do
-        if oUnit ~= toCrashUnit and toCrashUnit ~= oIgnoreUnit then
+        if oUnit ~= toCrashUnit and toCrashUnit ~= oIgnoreUnit and toCrashUnit.bOpenRigi then
             if rigibody.isCrash(oUnit.oRigiBody, toCrashUnit.oRigiBody) then
                 return false
             end
@@ -95,6 +95,8 @@ local function doRigiUnitInCrash(unit1, unit2)
         end
     end
 
+    rigi1.lCenter = {rigi1X, rigi1Y}
+    rigi2.lCenter = {rigi2X, rigi2Y}
     print('doRigiUnitInCrash fail...')
 end
 
@@ -173,7 +175,7 @@ function initQuadtree(mapItemLayer)
     --     local layerTest = cc.Layer:create()
     --     mapItemLayer:addChild(layerTest)
     --     layerTest:setTag(50)
-    --     -- quadtree:DrawAllTree(layerTest)
+    --     quadtree:DrawAllTree(layerTest)
     --     quadtree:DrawAllUnit(layerTest)
 
     --     -- print('===============================')

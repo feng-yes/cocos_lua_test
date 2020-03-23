@@ -3,6 +3,7 @@ local constant = require('_my_code.test.tiledmap_game.constant')
 local physics_object = require('_my_code.test.tiledmap_game.unit.physics.physics_object')
 local rigidbody = require('_my_code.test.tiledmap_game.unit.physics.rigidbody')
 local cActionMgr = require('_my_code.test.tiledmap_game.unit.soldier.action_component.action_mgr')
+local cSkillMgr = require('_my_code.test.tiledmap_game.unit.soldier.skill_component.skill_mgr')
 
 local cChild, Super = CreateClass(physics_object.cPhysicsBody)
 
@@ -12,6 +13,9 @@ function cChild:__init__()
     self.layer = cc.Layer:create()
     self._sp = nil
     self._actionMgr = cActionMgr:New(self)
+    self._skillMgr = cSkillMgr:New(self)
+
+    self._nFaceDirection = 0
 
     -- 战场数据
     self.nWarUiId = 0
@@ -39,6 +43,11 @@ function cChild:setParent(parent, nZorder, nTag)
     parent:addChild(self.layer, nZorder, nTag)
 end
 
+-- 面朝方向
+function cChild:setFaceToAngle(nAngle)
+    self._nFaceDirection = nAngle / math.pi * 180
+end
+
 -- 动作指令
 function cChild:actMove(bMove, nAngle, speed)
     if bMove then
@@ -49,7 +58,7 @@ function cChild:actMove(bMove, nAngle, speed)
 end
 
 function cChild:actAttack(nNo)
-    print(nNo)
+    self._skillMgr:Attack(nNo, self._nFaceDirection)
 end
 
 return cChild

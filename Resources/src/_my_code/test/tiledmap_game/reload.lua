@@ -26,6 +26,7 @@ local function doReload()
     package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.acrtion_base'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.action_mgr'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.stand'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.jump'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.walk'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.beetle.action_component.boom'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.beetle.beetle_mgr'] = nil
@@ -34,6 +35,9 @@ local function doReload()
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.action_mgr'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.stand'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.walk'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.soldier.skill_component.callBeetle'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.soldier.skill_component.skill_base'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.soldier.skill_component.skill_mgr'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.child_mgr'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.child'] = nil
     package.loaded['_my_code.test.tiledmap_game.constant'] = nil

@@ -51,6 +51,7 @@ function cAction:openStatus(lPara)
 
         if bCango then
             self._soldier:setPosi(nAimX, nAimY)
+            self._soldier:setFaceToAngle(nDirection)
             if now - beginStepTime < constant.CHILD_WALK_STEPTIME then
                 self:_stepRepeat(moveFun)
             else
