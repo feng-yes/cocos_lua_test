@@ -1,4 +1,6 @@
 
+
+-- 人物及物品合图
 local framePath = 'mysource/tilmap_game/map/map_item/map_item.plist'
 cc.SpriteFrameCache:getInstance():addSpriteFrames(framePath)
 
@@ -17,4 +19,27 @@ beetle = 'map_item009.png'
 
 function createMapItem(frameName)
     return cc.Sprite:createWithSpriteFrameName(frameName)
+end
+
+-- 爆炸动画
+
+local function buildBoomAni()
+    local animationBoom = cc.Animation:create()
+    local number, name
+    for i = 48, 0, -1 do
+        if i < 10 then
+            number = "0"..i
+        else
+            number = i
+        end
+        name = "mysource/tilmap_game/ani/boom/boom_00"..number..".png"
+        animationBoom:addSpriteFrameWithFile(name)
+    end
+    animationBoom:setDelayPerUnit(2 / 49.0)
+    animationBoom:setRestoreOriginalFrame(true)
+    return animationBoom
+end
+
+function createBoomAni()
+    return buildBoomAni()
 end
