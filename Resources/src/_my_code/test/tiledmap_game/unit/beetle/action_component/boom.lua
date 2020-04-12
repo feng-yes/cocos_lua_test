@@ -12,7 +12,7 @@ function cAction:openStatus(lPara)
     boom:setPosi(self._unit:getPosi())
     boom:startBoom()
     self._mgr:changeStatus(self, constant.BEETLE_ACTION_STAND)
-    -- self._unit:Destory()
+    self._unit:Destory()
 end
 
 return cAction
