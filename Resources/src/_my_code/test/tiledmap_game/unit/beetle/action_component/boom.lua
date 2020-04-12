@@ -8,11 +8,11 @@ function cAction:__init__(mgr, unit)
 end
 
 function cAction:openStatus(lPara)
-    print('dead')
     local boom = boomObj:New()
     boom:setPosi(self._unit:getPosi())
     boom:startBoom()
     self._mgr:changeStatus(self, constant.BEETLE_ACTION_STAND)
+    -- self._unit:Destory()
 end
 
 return cAction

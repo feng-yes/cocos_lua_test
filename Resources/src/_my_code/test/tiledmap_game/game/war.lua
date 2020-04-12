@@ -44,6 +44,7 @@ function cWar:addPlayerAndSetSide(sSoilderPic, nSide, lArea)
     table.insert(self.warSides[nSide], oSoilder)
     oSoilder.nWarSide = nSide
     self:setUnitId(oSoilder, sSoilderPic)
+    oSoilder:UpdateWarUI()
     return oSoilder
 end
 
@@ -51,9 +52,18 @@ end
 function cWar:CallBeetle(oCallUnit, aimDirection)
     local oBee = beetleMgr.createBeetle()
     mapMgr.addChild(oBee:getLayer())
+    oBee.nWarSide = oCallUnit.nWarSide
+    table.insert(self.warSides[oCallUnit.nWarSide], oBee)
     oBee:setPosi(oCallUnit:getPosi())
     oBee:actJump(aimDirection)
     return oBee
+end
+
+-- 单位销毁时注销战场数据
+function cWar:DelUnit(oUnit)
+    if oUnit.unitType == constant.WAR_UNIT_TYPE_BEETLE then
+        table.remove_v(self.warSides[oUnit.nWarSide], oUnit)
+    end
 end
 
 function cWar:setControlPlayer(unit)

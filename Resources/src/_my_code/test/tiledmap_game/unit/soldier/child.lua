@@ -2,6 +2,8 @@
 local constant = require('_my_code.test.tiledmap_game.constant')
 local physics_object = require('_my_code.test.tiledmap_game.unit.physics.physics_object')
 local rigidbody = require('_my_code.test.tiledmap_game.unit.physics.rigidbody')
+local slot = require('_my_code.test.tiledmap_game.signal.signal')
+local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant')
 local cActionMgr = require('_my_code.test.tiledmap_game.unit.soldier.action_component.action_mgr')
 local cSkillMgr = require('_my_code.test.tiledmap_game.unit.soldier.skill_component.skill_mgr')
 
@@ -20,6 +22,10 @@ function cChild:__init__()
     -- 战场数据
     self.nWarUiId = 0
     self.nWarSide = 0
+
+    -- 状态
+    self._HP = 100
+    self._BeeNums = 5
 
     self:_initPhy()
 end
@@ -48,6 +54,36 @@ function cChild:setFaceToAngle(nAngle)
     self._nFaceDirection = nAngle / math.pi * 180
 end
 
+-- 状态量相关
+function cChild:useBee()
+    if self._BeeNums > 0 then
+        self._BeeNums = self._BeeNums - 1
+        slot.emit(slotConstant.WAR_UI_UNIT, self.nWarUiId, constant.CHILD_ATTACK_TEXT_TAG, self._BeeNums)
+        return true
+    end
+end
+
+function cChild:AddBees(nums)
+    self._BeeNums = self._BeeNums + nums
+    slot.emit(slotConstant.WAR_UI_UNIT, self.nWarUiId, constant.CHILD_ATTACK_TEXT_TAG, self._BeeNums)
+end
+
+function cChild:HPChange(changeNum)
+    self._HP = self._HP + changeNum
+    if self._HP <= 0 then
+        self._HP = 0
+        self:die()
+    end
+    slot.emit(slotConstant.WAR_UI_UNIT, self.nWarUiId, constant.CHILD_HP_TEXT_TAG, self._HP)
+end
+
+function cChild:UpdateWarUI()
+    slot.emit(slotConstant.WAR_UI_UNIT, self.nWarUiId, constant.CHILD_ATTACK_TEXT_TAG, self._BeeNums)
+    slot.emit(slotConstant.WAR_UI_UNIT, self.nWarUiId, constant.CHILD_HP_TEXT_TAG, self._HP)
+end
+
+
+
 function cChild:OnCrash(oCrashObj)
     if oCrashObj.unitType == constant.WAR_EFFECT_TYPE_BOOM and not oCrashObj:IsCrashUnit(self) then
         local xMy, yMy = self:getPosi()
@@ -57,10 +93,8 @@ function cChild:OnCrash(oCrashObj)
         local nDistance = math.sqrt(movex * movex + movey * movey)
         local nAngle = math.atan2(movey, movex)
         local nFlyLong = 2 * (constant.BOOM_RANGE_X - nDistance)
-        -- print(constant.BOOM_RANGE_X - nDistance)
-        -- local nFlyLong = 100
-        print(math.cos(nAngle) * nFlyLong, math.sin(nAngle) * nFlyLong)
         self._actionMgr:HitFly({math.cos(nAngle) * nFlyLong + xMy, math.sin(nAngle) * nFlyLong + yMy})
+        self:HPChange(-30)
     end
 end
 
@@ -75,6 +109,10 @@ end
 
 function cChild:actAttack(nNo)
     self._skillMgr:Attack(nNo, self._nFaceDirection)
+end
+
+function cChild:die()
+    self._actionMgr:Die()
 end
 
 return cChild

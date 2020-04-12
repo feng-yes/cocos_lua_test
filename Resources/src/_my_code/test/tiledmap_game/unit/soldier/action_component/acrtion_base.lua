@@ -23,4 +23,7 @@ end
 function cActionBase:HitFly(lPoint)
 end
 
+function cActionBase:Die()
+end
+
 return cActionBase

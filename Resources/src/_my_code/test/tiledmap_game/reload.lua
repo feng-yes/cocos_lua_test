@@ -36,6 +36,7 @@ local function doReload()
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.action_mgr'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.stand'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.walk'] = nil
+    package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.dead'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.hit_fly'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.action_component.invincible'] = nil
     package.loaded['_my_code.test.tiledmap_game.unit.soldier.skill_component.callBeetle'] = nil

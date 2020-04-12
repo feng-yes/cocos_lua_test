@@ -83,11 +83,16 @@ CHILD_ACTION_STAND = 'stand'
 CHILD_ACTION_WALK = 'walk'
 CHILD_ACTION_HIT_FLY = 'hit_fly'
 CHILD_ACTION_INVINCIBLE = 'invincible'
+CHILD_ACTION_DEAD = 'dead'
 
 -- 行走相关
 CHILD_WALK_STEPTIME = 0.4  -- 步速（每一步时间）
 CHILD_WALK_STEPHIGH = 20  -- 步高
 CHILD_WALK_STEPWIDTH = 50  -- 步长
+
+-- 复活时间
+CHILD_RECOVER = 10
+CHILD_RECOVER_INVINCIBLE = 3
 
 -- layer动作tag
 CHILD_LAYER_ACTION_TAG_MOVE = 1  -- 移动定时器tag

@@ -15,7 +15,9 @@ function cSkill:Release(nDirection)
     local war = require('_my_code.test.tiledmap_game.game.war')
     local startDir = -30
     for i = 1, 3 do
-        war:CallBeetle(self._soldier, nDirection + i * 15 + startDir)
+        if self._soldier:useBee() then
+            war:CallBeetle(self._soldier, nDirection + i * 15 + startDir)
+        end
     end
 end
 

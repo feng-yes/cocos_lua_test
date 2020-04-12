@@ -13,6 +13,7 @@ function cAction:__init__(mgr, soldier)
 
     self._aimPosi = nil
     self._nFlyLong = 0
+    self._bCauseDie = false
 end
 
 function cAction:openStatus(lPara)
@@ -87,12 +88,21 @@ end
 
 function cAction:_finish()
     self:_reset()
-    self._mgr:changeStatus(self, constant.CHILD_ACTION_INVINCIBLE, {downTimes * self._nFlyLong})
+    if self._bCauseDie then
+        self._mgr:changeStatus(self, constant.CHILD_ACTION_DEAD)
+    else
+        self._mgr:changeStatus(self, constant.CHILD_ACTION_INVINCIBLE, {downTimes * self._nFlyLong})
+    end
     self._aimPosi = nil
     self._nFlyLong = 0
+    self._bCauseDie = false
 end
 
 function cAction:HitFly(lPoint)
+end
+
+function cAction:Die()
+    self._bCauseDie = true
 end
 
 return cAction
