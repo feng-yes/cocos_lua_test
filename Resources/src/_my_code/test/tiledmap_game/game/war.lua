@@ -47,21 +47,6 @@ function cWar:addPlayerAndSetSide(sSoilderPic, nSide, lArea)
     return oSoilder
 end
 
--- 阵营2角色
-function cWar:addWarSide2Player(lArea)
-    local child2 = childMgr.createPlayer2()
-    mapMgr.addChild(child2:getLayer())
-    child2:setPosiByPoint(table.random_pop(lArea))
-
-    if not self.warSides[2] then
-        self.warSides[2] = {}
-    end
-    table.insert(self.warSides[2], child2)
-    child2.nWarSide = 2
-    self:setUnitId(child2, mapItem.boy2)
-    return child2
-end
-
 -- 召唤虫子
 function cWar:CallBeetle(oCallUnit, aimDirection)
     local oBee = beetleMgr.createBeetle()

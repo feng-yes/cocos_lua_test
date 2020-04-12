@@ -99,4 +99,10 @@ function cAction:StopMove()
     self._nextActionMove = false
 end
 
+function cAction:HitFly(lPoint)
+    self._soldier:getLayer():stopActionByTag(constant.CHILD_LAYER_ACTION_TAG_MOVE)
+    self._soldier:getSp():stopActionByTag(constant.CHILD_SP_ACTION_TAG_MOVE)
+    self._mgr:changeStatus(self, constant.CHILD_ACTION_HIT_FLY, {lPoint})
+end
+
 return cAction

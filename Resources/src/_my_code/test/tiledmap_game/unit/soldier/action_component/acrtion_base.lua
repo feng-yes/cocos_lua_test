@@ -20,4 +20,7 @@ end
 function cActionBase:StopMove()
 end
 
+function cActionBase:HitFly(lPoint)
+end
+
 return cActionBase

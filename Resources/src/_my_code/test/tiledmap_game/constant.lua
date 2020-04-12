@@ -71,6 +71,8 @@ WAR_UNIT_TYPE_BASE = 1
 WAR_UNIT_TYPE_CHILD = 2
 WAR_UNIT_TYPE_BEETLE = 3
 
+WAR_EFFECT_TYPE_BOOM = 4
+
 --============================ 人物相关
 -- 精灵相对layer向上偏移量
 CHILD_SP_DEFAULTY = 16
@@ -79,6 +81,8 @@ CHILD_PHY_MASS = 100
 -- 动作状态机名称
 CHILD_ACTION_STAND = 'stand'
 CHILD_ACTION_WALK = 'walk'
+CHILD_ACTION_HIT_FLY = 'hit_fly'
+CHILD_ACTION_INVINCIBLE = 'invincible'
 
 -- 行走相关
 CHILD_WALK_STEPTIME = 0.4  -- 步速（每一步时间）
@@ -87,9 +91,11 @@ CHILD_WALK_STEPWIDTH = 50  -- 步长
 
 -- layer动作tag
 CHILD_LAYER_ACTION_TAG_MOVE = 1  -- 移动定时器tag
+CHILD_LAYER_ACTION_TAG_HIT_FLY = 2  -- 击飞横向移动定时器tag
 
 -- sp动作tag
 CHILD_SP_ACTION_TAG_MOVE = 1  -- 移动跳跃
+CHILD_SP_ACTION_TAG_HIT_FLY = 2  -- 击飞纵向移动
 
 -- 战场UI
 CHILD_HP_TEXT_TAG = 1
@@ -129,6 +135,13 @@ BEETLE_LAYER_ACTION_TAG_JUMP = 2  -- 跳跃水平移动定时器tag
 BEETLE_SP_ACTION_TAG_JUMP = 1  -- 跳跃
 --============================ 瓢虫
 
+
+--============================ 爆炸
+-- 爆炸范围
+BOOM_RANGE_X = MAP_CELL_WIDTH * 2 - 20
+BOOM_RANGE_Y = MAP_CELL_HIGH * 2 + 5
+
+--============================ 爆炸
 
 
 --============================ 四叉树

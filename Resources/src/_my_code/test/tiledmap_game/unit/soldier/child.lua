@@ -48,6 +48,22 @@ function cChild:setFaceToAngle(nAngle)
     self._nFaceDirection = nAngle / math.pi * 180
 end
 
+function cChild:OnCrash(oCrashObj)
+    if oCrashObj.unitType == constant.WAR_EFFECT_TYPE_BOOM and not oCrashObj:IsCrashUnit(self) then
+        local xMy, yMy = self:getPosi()
+        local xBoom, yBoom = oCrashObj:getPosi()
+        local movex = xMy - xBoom
+        local movey = yMy - yBoom
+        local nDistance = math.sqrt(movex * movex + movey * movey)
+        local nAngle = math.atan2(movey, movex)
+        local nFlyLong = 2 * (constant.BOOM_RANGE_X - nDistance)
+        -- print(constant.BOOM_RANGE_X - nDistance)
+        -- local nFlyLong = 100
+        print(math.cos(nAngle) * nFlyLong, math.sin(nAngle) * nFlyLong)
+        self._actionMgr:HitFly({math.cos(nAngle) * nFlyLong + xMy, math.sin(nAngle) * nFlyLong + yMy})
+    end
+end
+
 -- 动作指令
 function cChild:actMove(bMove, nAngle, speed)
     if bMove then

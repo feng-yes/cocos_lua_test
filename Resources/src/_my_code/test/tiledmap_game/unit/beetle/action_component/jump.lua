@@ -69,7 +69,7 @@ end
 
 function cAction:_finish()
     self:_reset()
-    self._mgr:changeStatus(self, constant.CHILD_ACTION_STAND)
+    self._mgr:changeStatus(self, constant.BEETLE_ACTION_STAND)
 end
 
 return cAction

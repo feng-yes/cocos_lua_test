@@ -118,22 +118,3 @@ function getPosiFix(unit, lPrePosi, lAimPosi)
         return point2
     end
 end
-
-
-
--- 爆炸
-function boom(lPosi)
-    local mapMgr = require('_my_code.test.tiledmap_game.map.mgr')
-    local mapItem = require('_my_code.test.tiledmap_game.res.map_item')
-
-    local action = cc.Animate:create(mapItem.createBoomAni())
-
-    local aniSp = cc.Sprite:create()
-    aniSp:SetPosition(unpack(lPosi))
-    mapMgr.addChild(aniSp)
-    resetorder(aniSp)
-    aniSp:setCameraMask(constant.MAP_CAMERA_FLAG)
-    aniSp:runAction(cc.Sequence:create(action, cc.CallFunc:create(function() 
-        aniSp:removeFromParent()
-    end)))
-end

@@ -11,4 +11,8 @@ function cAction:Move(nDirection, nSpeed)
     self._mgr:changeStatus(self, constant.CHILD_ACTION_WALK, {nDirection, nSpeed})
 end
 
+function cAction:HitFly(lPoint)
+    self._mgr:changeStatus(self, constant.CHILD_ACTION_HIT_FLY, {lPoint})
+end
+
 return cAction

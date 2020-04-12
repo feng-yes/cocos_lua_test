@@ -8,11 +8,15 @@ function cAction:__init__(mgr, unit)
 end
 
 function cAction:Move(nDirection, nSpeed)
-    self._mgr:changeStatus(self, constant.CHILD_ACTION_WALK, {nDirection, nSpeed})
+    self._mgr:changeStatus(self, constant.BEETLE_ACTION_WALK, {nDirection, nSpeed})
 end
 
 function cAction:Jump(nDirection)
     self._mgr:changeStatus(self, constant.BEETLE_ACTION_JUMP, {nDirection})
+end
+
+function cAction:Boom()
+    self._mgr:changeStatus(self, constant.BEETLE_ACTION_BOOM)
 end
 
 return cAction

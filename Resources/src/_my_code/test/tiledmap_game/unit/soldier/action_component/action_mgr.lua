@@ -11,7 +11,7 @@ function cActionMgr:__init__(soldier)
 end
 
 function cActionMgr:_initStatus()
-    local actionList = {constant.CHILD_ACTION_STAND, constant.CHILD_ACTION_WALK}
+    local actionList = {constant.CHILD_ACTION_STAND, constant.CHILD_ACTION_WALK, constant.CHILD_ACTION_HIT_FLY, constant.CHILD_ACTION_INVINCIBLE}
     for i, v in ipairs(actionList) do
         local cStatus = require('_my_code.test.tiledmap_game.unit.soldier.action_component.' .. v)
         self._statusMap[v] = cStatus:New(self, self._soldier)
@@ -31,6 +31,10 @@ end
 
 function cActionMgr:StopMove()
     self._statusMap[self._nowStatusName]:StopMove()
+end
+
+function cActionMgr:HitFly(lPoint)
+    self._statusMap[self._nowStatusName]:HitFly(lPoint)
 end
 
 return cActionMgr

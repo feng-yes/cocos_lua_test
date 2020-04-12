@@ -70,7 +70,11 @@ end
 
 function cAction:_finishMove()
     self:_reset()
-    self._mgr:changeStatus(self, constant.CHILD_ACTION_STAND)
+    self._mgr:changeStatus(self, constant.BEETLE_ACTION_STAND)
+end
+
+function cAction:StopMove()
+    self._nextActionMove = false
 end
 
 function cAction:Move(nDirection, nSpeed)
@@ -78,8 +82,8 @@ function cAction:Move(nDirection, nSpeed)
     self._nextMovePara = {nDirection, nSpeed}
 end
 
-function cAction:StopMove()
-    self._nextActionMove = false
+function cAction:Boom()
+    self._mgr:changeStatus(self, constant.BEETLE_ACTION_BOOM)
 end
 
 return cAction

@@ -3,7 +3,6 @@ local constant = require('_my_code.test.tiledmap_game.constant')
 local physics_object = require('_my_code.test.tiledmap_game.unit.physics.physics_object')
 local rigidbody = require('_my_code.test.tiledmap_game.unit.physics.rigidbody')
 local cActionMgr = require('_my_code.test.tiledmap_game.unit.beetle.action_component.action_mgr')
-local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
 
 local cBeetle, Super = CreateClass(physics_object.cPhysicsBody)
 
@@ -79,7 +78,8 @@ function cBeetle:actJump(nDirection)
 end
 
 function cBeetle:actAttack(nNo)
-    mapInterface.boom({self:getPosi()})
+    self._actionMgr:Attack(nNo)
+    -- mapInterface.boom({self:getPosi()})
 end
 
 return cBeetle
