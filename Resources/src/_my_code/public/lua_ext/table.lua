@@ -29,6 +29,23 @@ function table.copy(t)
     return t2
 end
 
+-- 深复制
+function table.deepcopy(tb)
+    local tbs = {}
+    local function copy(t)
+        if type(t) ~= 'table' then return t end
+        local ret = tbs[t]
+        if ret then return ret end
+        ret = {}
+        tbs[t] = ret
+        for k, v in pairs(t) do
+            ret[k] = copy(v)
+        end
+        return ret
+    end
+    return copy(tb)
+end
+
 -- 两个array的交集array
 function table.intersection(array1, array2)
     local array3 = {}
