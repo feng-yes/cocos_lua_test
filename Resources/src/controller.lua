@@ -48,20 +48,38 @@ local function addSearchPath(resPrefix, height)
 
 end
 
+local function runScene(scene)
+    if cc.Director:getInstance():getRunningScene() then
+        cc.Director:getInstance():replaceScene(scene)
+    else
+        cc.Director:getInstance():runWithScene(scene)
+    end
+end
+
 addSearchPath("res/", screenSize.height)
 addSearchPath("", screenSize.height)
 
-require "mainMenu"
+require "VisibleRect"
+require "testResource"
+require "helper"
+-- require "mainMenu"
 
-local scene = cc.Scene:create()
-scene:addChild(CreateTestMenu())
-if cc.Director:getInstance():getRunningScene() then
-    cc.Director:getInstance():replaceScene(scene)
-else
-    cc.Director:getInstance():runWithScene(scene)
-end
+-- local scene = cc.Scene:create()
+-- scene:addChild(CreateTestMenu())
+-- if cc.Director:getInstance():getRunningScene() then
+--     cc.Director:getInstance():replaceScene(scene)
+-- else
+--     cc.Director:getInstance():runWithScene(scene)
+-- end
 
 -- 直接加载我的测试用例
-cc.Director:getInstance():purgeCachedData()
-local testScene = MyTestMain()
-cc.Director:getInstance():replaceScene(testScene)
+require "Resources.src._my_code.init"
+function RunMyCode()
+    cc.Director:getInstance():purgeCachedData()
+    local testScene = MyTestMain()
+    runScene(testScene)
+end
+
+-- RunMyCode()
+local startGameScene = require('_my_code.test.tiledmap_game.init')
+runScene(startGameScene())

@@ -9,10 +9,10 @@ require "_my_code.test._others.back"
 
 -- 测试名称及路径
 local testCaseNames = {
+	{name = 'game_battles', path = '_my_code.test.tiledmap_game.init', autoReload = true},
 	{name = 'pub_test', path = '_my_code.test.public_test.pub_test', autoReload = true},
 	{name = 'cliping_node', path = '_my_code.test.cliping_node.test_cliping_node', autoReload = true},
 	{name = 'replace_sprite_pic', path = '_my_code.test.replace_sprite_pic.test_replace_sprite_pic', autoReload = true},
-	{name = 'game_tiledmap', path = '_my_code.test.tiledmap_game.init', autoReload = true},
 }
 
 local LINE_SPACE = 40
@@ -66,7 +66,7 @@ local function createMainLayer()
 			end
 		end
 
-        testMenuItem:registerScriptTapHandler(i == 1 and createPubTest or createTestScene)
+        testMenuItem:registerScriptTapHandler(caseInfo.name == 'pub_test' and createPubTest or createTestScene)
         menu:addChild(testMenuItem)
 	end
 
