@@ -8,6 +8,7 @@ local quadtreeMgr = require('_my_code.test.tiledmap_game.quadtree.mgr')
 
 CreateLocalModule('_my_code.test.tiledmap_game.map.mgr')
 
+-- 挂在地图的物体都放这个layer
 local tagItemLayer = 1
 
 local map = nil

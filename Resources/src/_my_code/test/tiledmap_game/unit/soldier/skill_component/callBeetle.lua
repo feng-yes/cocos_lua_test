@@ -1,4 +1,6 @@
 local constant = require('_my_code.test.tiledmap_game.constant')
+local slot = require('_my_code.test.tiledmap_game.signal.signal')
+local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant')
 
 local base = require('_my_code.test.tiledmap_game.unit.soldier.skill_component.skill_base')
 local cSkill, Super = CreateClass(base)
@@ -11,12 +13,10 @@ function cSkill:__init__(soldier)
 end
 
 function cSkill:Release(nDirection)
-    print(nDirection)
-    local war = require('_my_code.test.tiledmap_game.game.war')
     local startDir = -30
     for i = 1, 3 do
         if self._soldier:useBee() then
-            war:CallBeetle(self._soldier, nDirection + i * 15 + startDir)
+            slot.emit(slotConstant.WAR_UNIT_ADD, constant.WAR_UNIT_TYPE_BEETLE, {self._soldier, nDirection + i * 15 + startDir})
         end
     end
 end

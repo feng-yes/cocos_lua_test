@@ -1,7 +1,7 @@
 
 
 local function RunTest()
-    -- 开始前先清除模块数据
+    -- debug: 开始前先清除模块数据
     package.loaded['_my_code.test.tiledmap_game.reload'] = nil
     require('_my_code.test.tiledmap_game.reload')()
 

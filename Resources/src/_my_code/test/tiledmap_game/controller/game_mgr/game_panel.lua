@@ -8,6 +8,8 @@ local keyBoardLayer = require('_my_code.test.tiledmap_game.controller.keymap')
 
 CreateLocalModule('_my_code.test.tiledmap_game.controller.game_mgr.game_panel')
 
+local controlLayer
+
 function initLayer()
     controlLayer = cc.Layer:create()
     -- 玩家控制(移动，攻击等)
@@ -18,5 +20,11 @@ function initLayer()
     controlLayer:addChild(menuPanel.initLayer())
     -- 键盘
     controlLayer:addChild(keyBoardLayer.initKeyBoard())
+    return controlLayer
+end
+
+-- controlLayer 充当通用节点，用来作定时器节点等
+function getLayer()
+    assert(controlLayer)
     return controlLayer
 end

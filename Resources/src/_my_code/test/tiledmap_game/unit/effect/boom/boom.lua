@@ -84,7 +84,7 @@ function cBoom:startBoom()
             pColorLayer:setCameraMask(constant.MAP_CAMERA_FLAG)
             self._testColorLayer = pColorLayer
         end
-        return 0.01
+        return 0.001
     end)
 end
 

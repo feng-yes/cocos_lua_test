@@ -21,9 +21,12 @@ function cPhysicsBody:__init__()
     self.bOpenRigi = false
     self.nMass = 100  -- 质量
 
+    -- 单位的生命周期已结束
+    self.bDead = false
+
     -- cocos主节点
-    self.layer = nil 
-    self._sp = nil
+    self.layer = nil -- 主节点
+    self._sp = nil -- 可视精灵节点
 
     -- 位置
     self._lMapPoint = {0, 0}
@@ -39,15 +42,17 @@ function cPhysicsBody:setRigiBody(oRigiBody)
     quadtreeMgr.insertToUnitList(self)
 end
 
-function cPhysicsBody:lostPhysics()
-    self.bPhysics = false
-    quadtreeMgr.removeFromUnitList(self)
-end
+-- 暂时用不到这个接口，先屏蔽；如果开启，物体碰撞处理时，要考虑两者是否都是 bPhysics
+-- function cPhysicsBody:lostPhysics()
+--     self.bPhysics = false
+--     quadtreeMgr.removeFromUnitList(self)
+-- end
 
 function cPhysicsBody:Destory()
     if self.layer then
         self.layer:removeFromParent()
     end
+    self.bDead = true
     quadtreeMgr.removeFromUnitList(self)
 end
 

@@ -161,6 +161,13 @@ function cc.Node:SetOpenTouchSwallow(bOpen)
     end
 end
 
+function cc.Node:SetCasadeGlobalZOrder(nOrder)
+    self:setGlobalZOrder(nOrder)
+    for i, child in ipairs(self:getChildren()) do
+        child:SetCasadeGlobalZOrder(nOrder)
+    end
+end
+
 -- 定时函数
 function cc.Node:DelayCallOnce(nTime, callFunc)
     self:runAction(cc.Sequence:create(

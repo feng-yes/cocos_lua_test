@@ -60,12 +60,6 @@ function cBeetle:setFaceToAngle(nAngle)
     end
 end
 
-function cBeetle:Destory()
-    local war = require('_my_code.test.tiledmap_game.game.war')
-    Super.Destory(self)
-    war:DelUnit(self)
-end
-
 function cBeetle:IsBooming()
     return self:_getActionStatus() == constant.BEETLE_ACTION_BOOM
 end

@@ -6,6 +6,7 @@ local slot = require('_my_code.test.tiledmap_game.signal.signal')
 local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant')
 local cActionMgr = require('_my_code.test.tiledmap_game.unit.soldier.action_component.action_mgr')
 local cSkillMgr = require('_my_code.test.tiledmap_game.unit.soldier.skill_component.skill_mgr')
+local mapItem = require('_my_code.test.tiledmap_game.res.map_item')
 
 local cChild, Super = CreateClass(physics_object.cPhysicsBody)
 
@@ -14,6 +15,7 @@ function cChild:__init__()
     self.unitType = constant.WAR_UNIT_TYPE_CHILD
     self.layer = cc.Layer:create()
     self._sp = nil
+    self._nodeTalk = nil
     self._actionMgr = cActionMgr:New(self)
     self._skillMgr = cSkillMgr:New(self)
 
@@ -28,6 +30,7 @@ function cChild:__init__()
     self._BeeNums = 5
 
     self:_initPhy()
+    self:TalkNode()
 end
 
 function cChild:_initPhy()
@@ -54,7 +57,7 @@ function cChild:setFaceToAngle(nAngle)
     self._nFaceDirection = nAngle / math.pi * 180
 end
 
--- 状态量相关
+-- ====状态量相关
 function cChild:useBee()
     if self._BeeNums > 0 then
         self._BeeNums = self._BeeNums - 1
@@ -76,6 +79,7 @@ function cChild:HPChange(changeNum)
     end
     slot.emit(slotConstant.WAR_UI_UNIT, self.nWarUiId, constant.CHILD_HP_TEXT_TAG, self._HP)
 end
+-- ====状态量相关
 
 function cChild:UpdateWarUI()
     slot.emit(slotConstant.WAR_UI_UNIT, self.nWarUiId, constant.CHILD_ATTACK_TEXT_TAG, self._BeeNums)
@@ -98,7 +102,7 @@ function cChild:OnCrash(oCrashObj)
     end
 end
 
--- 动作指令
+-- ====动作指令
 function cChild:actMove(bMove, nAngle, speed)
     if bMove then
         self._actionMgr:Move(nAngle, speed)
@@ -114,5 +118,38 @@ end
 function cChild:die()
     self._actionMgr:Die()
 end
+-- ====动作指令
+
+-- ==== talk
+function cChild:_initTalkNode()
+    self._nodeTalk = cc.Node:create()
+    self._nodeTalk.spDi = mapItem.createMapItem(mapItem.talk)
+    self._nodeTalk.extraNode = cc.Node:create()
+    local nodeMiddle = cc.Node:create()
+    nodeMiddle:addChild(self._nodeTalk.spDi)
+    nodeMiddle:addChild(self._nodeTalk.extraNode)
+    nodeMiddle:SetPosition(32, 30)
+    -- self._nodeTalk:setAnchorPoint(cc.p(0, 0))
+    self._nodeTalk:addChild(nodeMiddle)
+    self._nodeTalk:SetPosition(0, 50)
+    self.layer:addChild(self._nodeTalk)
+    self.layer:setCameraMask(constant.MAP_CAMERA_FLAG)
+
+    local ease_in = cc.EaseIn:create(cc.ScaleTo:create(0.2, 1), 2.5)
+    local ease_out = cc.EaseOut:create(cc.ScaleTo:create(0.2, 0), 2.5)
+
+    self._nodeTalk:runAction(cc.RepeatForever:create(cc.Sequence:create(ease_in, cc.DelayTime:create(1), ease_out, cc.CallFunc:create(function()
+        print(self._nodeTalk.spDi:getGlobalZOrder())
+    end))))
+    self._nodeTalk:setPositionZ(100)
+    self._nodeTalk:setLocalZOrder(10001)
+end
+
+function cChild:TalkNode(node)
+    if not self._nodeTalk then
+        self:_initTalkNode()
+    end
+end
+-- ==== talk
 
 return cChild

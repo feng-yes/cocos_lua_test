@@ -22,3 +22,8 @@ CAMERA_FOCUS_MOVE = counter()
 CAMERA_TOUCH_OPEN = counter()
 WAR_UI_UNIT = counter()
 WAR_UI_FOCUS = counter()
+WAR_UNIT_ADD = counter()
+WAR_UNIT_DEL = counter()
+WAR_ON_CRASH = counter()
+
+UI_BTN_QUIT = counter()

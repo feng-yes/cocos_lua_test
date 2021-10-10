@@ -14,6 +14,13 @@ local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant
 local cWar = CreateClass()
 
 function cWar:__init__()
+    self:_initData()
+    self:_initConstant()
+    self:_initSlot()
+    self._initCrashModel()
+end
+
+function cWar:_initData()
     -- 控制
     self.controlPlayer = nil
     self.controlAi = {}
@@ -25,15 +32,33 @@ function cWar:__init__()
     -- 阵型数据
     self.warSides = {}
 
-    self:_initSlot()
+    -- 道具管理器
+    self._itemMgr = nil
+end
+
+function cWar:_initConstant()
+    -- 新增战场单位的处理
+    self._unitAddFunMap = {
+        [constant.WAR_UNIT_TYPE_CHILD] = functor(self._addPlayerAndSetSide, self),
+        [constant.WAR_UNIT_TYPE_BEETLE] = functor(self._callBeetle, self),
+    }
 end
 
 function cWar:_initSlot()
     slot.register(slotConstant.WAR_UI_FOCUS, functor(self.changeCameraStatus, self))
+    slot.register(slotConstant.WAR_UNIT_ADD, functor(self._warUnitAdd, self))
+    slot.register(slotConstant.WAR_UNIT_DEL, functor(self._delUnit, self))
+    slot.register(slotConstant.WAR_ON_CRASH, functor(self._crashEvent, self))
+end
+
+-- ========== 增加或删除游戏单位 ==========
+
+function cWar:_warUnitAdd(nUnitType, paramList)
+    self._unitAddFunMap[nUnitType](unpack(paramList))
 end
 
 -- 创建一个角色及阵营
-function cWar:addPlayerAndSetSide(sSoilderPic, nSide, lArea)
+function cWar:_addPlayerAndSetSide(sSoilderPic, nSide, lArea)
     local oSoilder = childMgr.createPlayer(sSoilderPic)
     mapMgr.addChild(oSoilder:getLayer())
     oSoilder:setPosiByPoint(table.random_pop(lArea))
@@ -43,13 +68,13 @@ function cWar:addPlayerAndSetSide(sSoilderPic, nSide, lArea)
     end
     table.insert(self.warSides[nSide], oSoilder)
     oSoilder.nWarSide = nSide
-    self:setUnitId(oSoilder, sSoilderPic)
+    self:_setUnitId(oSoilder, sSoilderPic)
     oSoilder:UpdateWarUI()
     return oSoilder
 end
 
 -- 召唤虫子
-function cWar:CallBeetle(oCallUnit, aimDirection)
+function cWar:_callBeetle(oCallUnit, aimDirection)
     local oBee = beetleMgr.createBeetle()
     mapMgr.addChild(oBee:getLayer())
     oBee.nWarSide = oCallUnit.nWarSide
@@ -60,11 +85,14 @@ function cWar:CallBeetle(oCallUnit, aimDirection)
 end
 
 -- 单位销毁时注销战场数据
-function cWar:DelUnit(oUnit)
+function cWar:_delUnit(oUnit)
     if oUnit.unitType == constant.WAR_UNIT_TYPE_BEETLE then
         table.remove_v(self.warSides[oUnit.nWarSide], oUnit)
     end
+    oUnit:Destory()
 end
+
+-- ========== 增加或删除游戏单位 ==========
 
 function cWar:setControlPlayer(unit)
     controlPlayerMgr.setUnitAndOpenControl(unit)
@@ -111,7 +139,29 @@ function cWar:_removeCameraObj()
     self._cameraObj = nil
 end
 
-function cWar:setUnitId(unit, sSpPic)
+
+-- ========== 道具 ==========
+function cWar:StartItemSys()
+    self._itemMgr = require('_my_code.test.tiledmap_game.unit.item.mgr'):New()
+    self._itemMgr:StartFlash()
+end
+-- ========== 道具 ==========
+
+
+-- ========== 碰撞 =========
+function cWar:_initCrashModel()
+    local crashModelMap = {
+        {{constant.WAR_UNIT_TYPE_CHILD, constant.WAR_UNIT_ITEM}, function(oChild, oItem)
+        end},
+    }
+end
+
+function cWar:_crashEvent(oUnit1, oUnit2)
+end
+-- ========== 碰撞 ==========
+
+
+function cWar:_setUnitId(unit, sSpPic)
     local nId = #self._warUiToUnits + 1
     unit.nWarUiId = nId
     self._warUiToUnits[nId] = unit

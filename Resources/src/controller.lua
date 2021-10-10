@@ -73,7 +73,7 @@ require "helper"
 -- end
 
 -- 直接加载我的测试用例
-require "Resources.src._my_code.init"
+require "_my_code.init"
 function RunMyCode()
     cc.Director:getInstance():purgeCachedData()
     local testScene = MyTestMain()

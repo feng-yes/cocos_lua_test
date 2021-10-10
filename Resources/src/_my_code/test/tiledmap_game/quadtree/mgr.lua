@@ -4,6 +4,8 @@ local constant = require('_my_code.test.tiledmap_game.constant')
 local cQuadTree = require('_my_code.test.tiledmap_game.quadtree.quadtree')
 local mapInterface = require('_my_code.test.tiledmap_game.map.interface')
 local rigibody = require('_my_code.test.tiledmap_game.unit.physics.rigidbody')
+local slot = require('_my_code.test.tiledmap_game.signal.signal')
+local slotConstant = require('_my_code.test.tiledmap_game.signal.signal_constant')
 
 CreateLocalModule('_my_code.test.tiledmap_game.quadtree.mgr')
 
@@ -29,6 +31,7 @@ local function isUnitNoCrash(oUnit, oIgnoreUnit)
     return true
 end
 
+-- 两个刚体发生碰撞，重设位置（弹开）
 local function doRigiUnitInCrash(unit1, unit2)
     local rigi1 = unit1.oRigiBody
     local rigi2 = unit2.oRigiBody
@@ -100,6 +103,7 @@ local function doRigiUnitInCrash(unit1, unit2)
     print('doRigiUnitInCrash fail...')
 end
 
+-- 两个物体的一次碰撞处理
 local function doOneCrash(oUnit, toCrashUnit, dCrashRecord)
     if oUnit == toCrashUnit then
         return
@@ -109,37 +113,51 @@ local function doOneCrash(oUnit, toCrashUnit, dCrashRecord)
     end
 
     dCrashRecord[oUnit][toCrashUnit] = true
+
+    if toCrashUnit.bDead then
+        return
+    end
     if rigibody.isCrash(oUnit.oRigiBody, toCrashUnit.oRigiBody) then
         if oUnit.bOpenRigi and toCrashUnit.bOpenRigi then
             doRigiUnitInCrash(oUnit, toCrashUnit)
         end
+
+        slot.emit(slotConstant.WAR_ON_CRASH, oUnit, toCrashUnit)
 
         oUnit:OnCrash(toCrashUnit)
         toCrashUnit:OnCrash(oUnit)
     end
 end
 
--- 单次碰撞处理
+-- 单帧碰撞处理
 local function doCrash()
+    -- 碰撞处理时，有可能会增删 lPhysicsObject ,导致遍历时出错
+    local lCurPhysicsObject = table.copy(lPhysicsObject) 
+
     quadtree:Clear()
-    for i, obj in ipairs(lPhysicsObject) do
+    for i, obj in ipairs(lCurPhysicsObject) do
         quadtree:Insert(obj)
     end
     
     local dCrashRecord = {}  -- 记录已检测的碰撞，避免同一次处理中重复触发回调
-    for i, oUnit in ipairs(lPhysicsObject) do
+    for i, oUnit in ipairs(lCurPhysicsObject) do
         dCrashRecord[oUnit] = {}
 
-        local lToCrashUnit = quadtree:FindToCrashObj({}, oUnit)
-        for i, toCrashUnit in ipairs(lToCrashUnit) do
-            doOneCrash(oUnit, toCrashUnit, dCrashRecord)
+        if not oUnit.bDead then
+            local lToCrashUnit = quadtree:FindToCrashObj({}, oUnit)
+            for i, toCrashUnit in ipairs(lToCrashUnit) do
+                if oUnit.bDead then
+                    break
+                end
+                doOneCrash(oUnit, toCrashUnit, dCrashRecord)
+            end
         end
     end
 end
 
-function getUnitList()
-    return lPhysicsObject
-end
+-- function getUnitList()
+--     return lPhysicsObject
+-- end
 
 function insertToUnitList(oUnit)
     table.insert(lPhysicsObject, oUnit)

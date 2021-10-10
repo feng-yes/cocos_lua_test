@@ -19,13 +19,7 @@ local function createQuitBtn()
     btn:SetPosition(VisibleRect:leftTop().x + 10, VisibleRect:leftTop().y - 40)
     btn:setScale(0.2)
     btn.openClick = function() 
-        if package.loaded["_my_code.test.menu"] then
-            cc.Director:getInstance():popScene()
-            -- 清理缓存
-            cc.Director:getInstance():purgeCachedData()
-        else
-            RunMyCode()
-        end
+        slot.emit(slotConstant.UI_BTN_QUIT)
     end
     return btn
 end
