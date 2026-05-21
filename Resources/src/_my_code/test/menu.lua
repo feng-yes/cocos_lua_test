@@ -13,6 +13,7 @@ local testCaseNames = {
 	{name = 'pub_test', path = '_my_code.test.public_test.pub_test', autoReload = true},
 	{name = 'cliping_node', path = '_my_code.test.cliping_node.test_cliping_node', autoReload = true},
 	{name = 'replace_sprite_pic', path = '_my_code.test.replace_sprite_pic.test_replace_sprite_pic', autoReload = true},
+	{name = 'rope', path = '_my_code.test.rope.init', autoReload = true},
 }
 
 local LINE_SPACE = 40

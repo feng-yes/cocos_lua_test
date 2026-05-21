@@ -23,7 +23,8 @@ director:setAnimationInterval(1.0 / 60)
 
 local screenSize = glView:getFrameSize()
 
-local designSize = {width = 480, height = 320}
+local designSize = {width = 960, height = 640}
+-- local designSize = {width = 480, height = 320}
 
 if screenSize.height > 320 then
     local resourceSize = {width = 960, height = 640}
@@ -80,6 +81,6 @@ function RunMyCode()
     runScene(testScene)
 end
 
--- RunMyCode()
-local startGameScene = require('_my_code.test.tiledmap_game.init')
-runScene(startGameScene())
+RunMyCode()
+-- local startGameScene = require('_my_code.test.tiledmap_game.init')
+-- runScene(startGameScene())
